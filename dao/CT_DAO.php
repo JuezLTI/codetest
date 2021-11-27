@@ -71,9 +71,10 @@ class CT_DAO {
             'getQuestions' => "SELECT * FROM {$connection['p']}ct_question "
                 . "WHERE ct_id = :ct_id "
                 . "order by question_num",
-            'getMainsFromContext' => "SELECT * FROM {$connection['p']}ct_main "
-                . "WHERE context_id = :context_id "
-                . "order by modified desc",
+            'getMainsFromContext' => "SELECT main.* FROM {$connection['p']}ct_main main "
+                . "JOIN {$connection['p']}lti_context lti USING (context_id) "
+                . "WHERE context_key = :context_id "
+                . "order by main.modified desc",
             'getResultUser' => "SELECT * FROM {$connection['p']}lti_result "
                 . "WHERE user_id = :user_id AND link_id = :link_id",
             'getAnswersByUser' => "SELECT DISTINCT {$connection['p']}a.* "
@@ -206,7 +207,7 @@ class CT_DAO {
                 . "WHERE a.user_id = :userId AND q.ct_id = :ctId AND a.answer_txt is not null",
             'getGrade' => "SELECT * FROM {$connection['p']}ct_grade "
                 . "WHERE ct_id = :ct_id AND user_id = :user_id",
-            'getLtiContexts' => "SELECT DISTINCT lti.title as courseName, lti.context_id as ctxId "
+            'getLtiContexts' => "SELECT DISTINCT lti.title as courseName, lti.context_key as ctxId "
                 . "FROM {$connection['p']}ct_main m "
                 . "JOIN {$connection['p']}lti_context lti on m.context_id = lti.context_id "
                 . "WHERE m.user_id in ("
