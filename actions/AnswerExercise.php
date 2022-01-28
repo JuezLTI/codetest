@@ -32,7 +32,7 @@ if (!isset($answerText) || trim($answerText) == "") {
     if($answerLanguage == 0) {
         $client = HttpClient::create();
     
-        $response = $client->request("POST", "{$CFG->apiConfigs['xml-validator']['baseUrl']}/eval", [
+        $response = $client->request("POST", "{$CFG->apiConfigs['xml-validator']['baseUrl']}eval", [
             'json' => [
                 'date' => date("c"),
                 'program' => $answerText,
