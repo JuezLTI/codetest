@@ -1,17 +1,17 @@
 {% extends "mainTemplate.php.twig" %}
 {% block pageTitle %}
-{{ OUTPUT.pageTitle('pages-title.exercises.management'|trans, true, false) }}
+{{ OUTPUT.pageTitle('import-authorkit.exercises.management'|trans, true, false) }}
 {% endblock %}
 {% block content %}
     <div class="ak-exercises-list">
         <div class="authorkit__exercises-title">
             <div class="d-flex align-center">
                 <span class="h4">
-                    Showing exercises from project :
+                    {%trans%}ak-exercises-list.title{%endtrans%}
                 </span>
                 <div class="ml-auto">
                     <a href="ak-projects-list.php" style="text-decoration: underline;">
-                        Back to projects list
+                        {%trans%}ak-exercises-list.home{%endtrans%}
                     </a>
                 </div>
             </div>

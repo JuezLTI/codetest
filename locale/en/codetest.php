@@ -11,7 +11,7 @@ return [
         "usages" => "Usages",
         "usage.by.student" => "By Student",
         "usage.by.exercise" => "By Exercise",
-        "build" => "Build",
+        "build" => "Exercises",
         "home" => "Home",
         "exercises.create" => "Create exercise",
         "exercises.list" => "Exercises list",
@@ -26,17 +26,42 @@ return [
         "result.by.student" => "Results <small>by Student</small>",
         "usage.by.exercise" => "Usage <small>by Exercise</small>",
         "usage.by.student" => "Usage <small>by Student</small>",
-        "exercises.management" => "Exercises management",
         "export-context" => "Export context"
     ],
     "main-title" => [
         "lead" => "Add exercises to quickly collect usage from your student",
         "lead2" => "Virtual judge that supports programming and database training",
+        "exercises" => "Exercises",
+        "exercises.create" => "Create exercise",
+        "exercises.list" => "Exercises list",
+        "exercises.authorkit" => "Import from Authorkit",
+        "exercises.codetest" => "Reuse codetest exercises",
+        "usages" => "Usages",
+        "usages.exercise" => "By exercise",
+        "usages.user" => "By user",
+        "results" => "Results",
+        "results.student" => "By student",
+        "results.exercise" => "By exercise",
+        "results.download" => "Download results",
+        "grades" => "Grades",
+        "grades.average" => "Average:",
+        "grades.max" => "Max:",
+        "grades.min" => "Min:",     
+        "import/export" => "Import / Export context",
+        "import/export.export" => "Export your current context to a ZIP file",
+        "import/export.import" => "Import a ZIP file to your current context",
+        "import/export.import.confirm" => "Confirm import",
+        "preview" => "Preview as student",
+        "preview.view" => "Try out and preview your exercises before sending them to the students",
         "help" => "Help",
         "edit.title.text" => "Edit Title Text",
         "title.text" => "Title Text",
         "save.title.text" => "Save Title Text",
         "cancel.title.text" => "Cancel Title Text",
+        "title" => [
+            "programming" => "PROGRAMMING",
+            "sql" => "SQL"
+        ]
     ],
     "instructor" => [
         "add.exercise" => "Add exercise",
@@ -106,9 +131,9 @@ return [
         "general-help" => "General Help",
         "use.this.page.add" => "Use this page to add exercises for your students to answer. Once you add a exercise it is immediately available to students.",
         "import-exercises" => "Import Exercises",
-        "click.import-exercises" => 'Click "Import Exercises"',
-        "select.to.add" => "Select the exercises to add",
-        "click.import.or.enter" => 'Click the Import button or press "Enter" on your keyboard',
+        "click.import-exercises" => 'Click "Import Exercises".',
+        "select.to.add" => "Select the exercises to add.",
+        "click.import.or.enter" => 'Click the Import button or press "Enter" on your keyboard.',
         "editing.file" => "Editing the Title",
         "edit.title.clicking" => "You can edit the title of this Code Test by clicking the edit icon next to the title at the top of this page.",
         "if.no.exercise.edit" => "If there are no exercise in this Code Test, you can also edit its type.",
@@ -124,7 +149,7 @@ return [
         "student" => [
             "view.results" => "Viewing Results",
             "you.are.viewing.exercise.results" => "You are viewing the results by student. Click on a student below to see how that student answered each exercise.",
-            "sorted.recent" => "Students are sorted with the most recently submitted at the top of the list."
+            "for.each.sorted.recent" => "Students are sorted with the most recently submitted at the top of the list."
         ],
     ],
     "create-exercise-modal" => [
@@ -234,6 +259,61 @@ return [
             "inputs" => "With this inputs",
             "outputs" => "Expect this outputs",
             "restrictions" => "Restrictions (separated by lines)",
+        ]
+    ],
+    "import-authorkit" => [
+        "exercises.management" => "Exercises management",
+        "projects" => "AuthorKit projects",
+        "home" => "Back to home",
+        "number.exercises" => "Number of exercises:",
+        "project-status" => "Project status:",
+        "status" => [
+            "open" => "Open",
+            "draft" => "Draft",
+            "annonunced" => "Announced",
+        ],
+        "project-accessibility" => [
+            "public" => "Public project",
+            "private" => "Private project"
+        ]
+    ],
+    "ak-exercises-list" => [
+        "title" => "Showing exercises from proyect :",
+        "home" => "Back to projects list",
+        "labels" => [
+            "title" => "Title:",
+            "module" => "Module:",
+            "difficulty" => "Difficulty:",
+            "status" => "Status:",
+            "keywords" => "Keywords:",
+            "type" => "Type:",
+            "platform" => "Platform:",
+            "programmingLanguages" => "Programming languages:"
+        ],
+        "labels-values" => [
+            "difficulty" => [
+                "beginner" => "Beginner",
+                "easy" => "Easy",
+                "average" => "Average",
+                "hard" => "Hard",
+                "master" => "Master"
+            ],
+            "status" => [
+                "draft" => "Draft",
+                "unpublished" => "Unpublished",
+                "published" => "Published",
+                "trash" => "Trash"
+            ],
+            "type" => [
+                "blank_sheet" => "Blank sheet",
+                "extension" => "Extension",
+                "improvement" => "Improvement",
+                "bug_fix" => "Bug fix",
+                "fill_in_gaps" => "Fill in gaps",
+                "sort_blocks" => "Sort blocks",
+                "spot_bug" => "Spot bug"
+            ],
+            "not-specified" => "--  Not specified --"
         ]
     ],
     "backend-messages" => [

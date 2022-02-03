@@ -1,17 +1,17 @@
 {% extends "mainTemplate.php.twig" %}
 {% block pageTitle %}
-{{ OUTPUT.pageTitle('pages-title.exercises.management'|trans, true, false) }}
+{{ OUTPUT.pageTitle('import-authorkit.exercises.management'|trans, true, false) }}
 {% endblock %}
 {% block content %}
     <div>
         <div class="authorkit__projects-title">
             <div class="d-flex align-center">
                 <div class="h4" style="font-weight: 500;">
-                    Authorkit Projects
+                    {%trans%}import-authorkit.projects{%endtrans%}
                 </div>
                 <div class="ml-auto">
                     <a href="index.php" style="text-decoration: underline;">
-                        Back to home
+                    {%trans%}import-authorkit.home{%endtrans%}
                     </a>
                 </div>
             </div>

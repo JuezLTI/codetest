@@ -16,7 +16,7 @@
                         <a href="student-home.php?exerciseNum={{ i+1 }}" class="flex items-center gap-3">
                             {% set answer = user.getAnswerForExercise(exercises[i].getExerciseId(), exercises[i].getCtId()) %}
                             <span>
-                                Exercise {{ i+1 }}
+                                {%trans%}general.exercise{%endtrans%} {{ i+1 }}
                             </span>
                             {% embed "components/answer-info-box.php.twig" with { answer: answer } only %}
                             {% endembed %}

@@ -11,7 +11,7 @@
         <!-- Exercises -->
         {% embed "components/dashboard-card.php.twig" with { amount: exercises|length } %}
             {% block title %}
-                Exercises
+                {%trans%}main-title.exercises{%endtrans%}
             {% endblock %}
 
             {% block icon %}
@@ -21,7 +21,7 @@
                 <div>
                     <a class="hover-underline-animation link-with-icon" href="create-exercise.php">
                         <span>
-                            Create a exercise
+                            {%trans%}main-title.exercises.create{%endtrans%}
                         </span>
                         <span>
                             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -31,7 +31,7 @@
                 <div>
                     <a class="hover-underline-animation link-with-icon" href="exercises-list.php">
                         <span>
-                            Exercises list
+                            {%trans%}main-title.exercises.list{%endtrans%}
                         </span>
                         <span>
                             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -41,7 +41,7 @@
                 <div>
                     <a class="hover-underline-animation link-with-icon" href="ak-projects-list.php">
                         <span>
-                            Import from Authorkit
+                            {%trans%}main-title.exercises.authorkit{%endtrans%}
                         </span>
                         <span>
                             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -51,7 +51,7 @@
                 <div>
                     <a class="hover-underline-animation link-with-icon" href="import-from-repo.php?page=0">
                         <span>
-                            Reuse codetest exercises
+                            {%trans%}main-title.exercises.codetest{%endtrans%}
                         </span>
                         <span>
                             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -63,7 +63,7 @@
         <!-- Usages -->
         {% embed "components/dashboard-card.php.twig" with {amount: usagesCount} %}
             {% block title %}
-                Usages
+                {%trans%}main-title.usages{%endtrans%}
             {% endblock %}
 
             {% block icon %}
@@ -73,7 +73,7 @@
                 <div>
                     <a class="hover-underline-animation link-with-icon" href="usage-exercise.php">
                         <span>
-                            By exercise
+                            {%trans%}main-title.usages.exercise{%endtrans%}
                         </span>
                         <span>
                             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -83,7 +83,7 @@
                 <div>
                     <a class="hover-underline-animation link-with-icon" href="usage-student.php">
                         <span>
-                            By user
+                            {%trans%}main-title.usages.user{%endtrans%}
                         </span>
                         <span>
                             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -95,7 +95,7 @@
         <!-- Results -->
         {% embed "components/dashboard-card.php.twig" %}
             {% block title %}
-                Results
+                {%trans%}main-title.results{%endtrans%}
             {% endblock %}
 
             {% block icon %}
@@ -105,7 +105,7 @@
                 <div>
                     <a class="hover-underline-animation link-with-icon" href="results-student.php">
                         <span>
-                            By student
+                            {%trans%}main-title.results.student{%endtrans%}
                         </span>
                         <span>
                             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -115,7 +115,7 @@
                 <div>
                     <a class="hover-underline-animation link-with-icon" href="results-exercise.php">
                         <span>
-                            By exercise
+                            {%trans%}main-title.results.exercise{%endtrans%}
                         </span>
                         <span>
                             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -125,7 +125,7 @@
                 <div>
                     <a class="hover-underline-animation link-with-icon" href="results-download.php">
                         <span>
-                            Download results
+                            {%trans%}main-title.results.download{%endtrans%}
                         </span>
                         <span>
                             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -137,7 +137,7 @@
         <!-- Grade -->
         {% embed "components/dashboard-card.php.twig" with { amount: gradesCount, cardLink: 'grade.php' } %}
             {% block title %}
-                Grades
+                {%trans%}main-title.grades{%endtrans%}
             {% endblock %}
 
             {% block icon %}
@@ -147,7 +147,7 @@
                 <div class="grades-card-body">
                     <div>
                         <span>
-                            Average:
+                            {%trans%}main-title.grades.average{%endtrans%}
                         </span>
                         <span>
                             {{ gradesMap['avg']|number_format(2) }}
@@ -155,7 +155,7 @@
                     </div>
                     <div>
                         <span>
-                            Max:
+                            {%trans%}main-title.grades.max{%endtrans%}
                         </span>
                         <span>
                             {{ gradesMap['max']|number_format(2) }}
@@ -163,7 +163,7 @@
                     </div>
                     <div>
                         <span>
-                            Min:
+                            {%trans%}main-title.grades.min{%endtrans%}
                         </span>
                         <span>
                             {{ gradesMap['min']|number_format(2) }}
@@ -175,7 +175,7 @@
         <!-- Import/Export -->
         {% embed "components/dashboard-card.php.twig" %}
             {% block title %}
-                Import / Export context
+                {%trans%}main-title.import/export{%endtrans%}
             {% endblock %}
 
             {% block icon %}
@@ -185,7 +185,7 @@
                 <div>
                     <a class="hover-underline-animation link-with-icon" href="export-context.php">
                         <span>
-                            Export your current context to a ZIP file
+                            {%trans%}main-title.import/export.export{%endtrans%}
                         </span>
                         <span>
                             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -195,7 +195,7 @@
                 <div>
                     <label id="import-file-label" for="import-file-field" class="hover-underline-animation link-with-icon">
                         <span>
-                            Import a ZIP file to your current context
+                            {%trans%}main-title.import/export.import{%endtrans%}
                         </span>
                         <span>
                             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -205,7 +205,7 @@
                         <label id="import-confirmation" class="hover-underline-animation link-with-icon confirmation hidden">
                             <span>
                                 <span>
-                                    Confirm import?
+                                    {%trans%}main-title.import/export.import.confirm{%endtrans%}
                                 </span>
                                 <span class="file-size ml-auto">
                                     - - -
@@ -228,7 +228,7 @@
         <!-- Student view -->
         {% embed "components/dashboard-card.php.twig" with {cardLink: 'student-home.php'} %}
             {% block title %}
-                Preview as student
+                {%trans%}main-title.preview{%endtrans%}
             {% endblock %}
 
             {% block icon %}
@@ -236,7 +236,7 @@
             {% endblock %}
             {% block body %}
                 <div style="color: #0059b3;">
-                    Try out and preview your exercises before sending them to the students
+                    {%trans%}main-title.preview.view{%endtrans%}
                 </div>
             {% endblock %}
         {% endembed %}

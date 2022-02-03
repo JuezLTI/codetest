@@ -6,7 +6,7 @@
             </span>
         </div>
         <div class="project-item__header-buttons">
-            <div class="project-item__exercises-button" title="Number of exercises: {{project.countExercises}}">
+            <div class="project-item__exercises-button" title="{%trans%}import-authorkit.number.exercises{%endtrans%} {{project.countExercises}}">
                 <span>
                     <i class="fa fa-file-text-o" aria-hidden="true"></i>
                 </span>
@@ -14,16 +14,17 @@
                     {{project.countExercises}}
                 </span>
             </div>
-            <div class="project-item__status-button" title="Project status: {{project.status|capitalize}}">
+            <div class="project-item__status-button" title="{%trans%}import-authorkit.project-status{%endtrans%} {{('import-authorkit.status.' ~ project.status)|trans|capitalize}}">
                 <i class="circle-state--{{project.status}}" aria-hidden="true"></i>
             </div>
-            <div class="project-item__public-button" title="{{project.is_public ? 'Public' : 'Private' }} project">
+            <div class="project-item__public-button" title="{{project.is_public ? 'import-authorkit.project-accessibility.public'|trans : 'import-authorkit.project-accessibility.private'|trans }}">
                 <i class="fa fa-fw {{project.is_public ? 'fa-eye' : 'fa-eye-slash'}}" aria-hidden="true"></i>
             </div>
         </div>
     </div>
     <div class="project-item__description-row">
         <div>
+        
             {{project.description ? project.description : '-- No descripion --'}}
         </div>
     </div>

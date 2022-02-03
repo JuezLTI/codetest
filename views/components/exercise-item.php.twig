@@ -1,96 +1,104 @@
 <div class="exercise-item" data-exercise-id="{{exercise.id}}">
     <div>
         <span>
-            Title:
+            {%trans%}ak-exercises-list.labels.title{%endtrans%}
         </span>
         <span>
-            {{exercise.title}}
-        </span>
-    </div>
-    <div>
-        <span>
-            Module:
-        </span>
-        <span>
-            {{exercise.module}}
+            {{exercise.title|capitalize}}
         </span>
     </div>
     <div>
         <span>
-            Difficulty:
+            {%trans%}ak-exercises-list.labels.module{%endtrans%}
+        </span>
+
+        {% if exercise.module %}
+            <span>
+                {{exercise.module|capitalize}}
+            </span>
+        {% else %}
+            <span class="text-muted">
+                {%trans%}ak-exercises-list.labels-values.not-specified{%endtrans%}
+            </span>
+        {% endif %}
+
+    </div>
+    <div>
+        <span>
+            {%trans%}ak-exercises-list.labels.difficulty{%endtrans%}
         </span>
         <span>
-            {{exercise.difficulty|capitalize}}
+            {{('ak-exercises-list.labels-values.difficulty.' ~ exercise.difficulty)|trans|capitalize}}
         </span>
     </div>
     <div>
         <span>
-            Status:
+            {%trans%}ak-exercises-list.labels.status{%endtrans%}
         </span>
         <span>
-            {{exercise.status|capitalize}}
+            {{('ak-exercises-list.labels-values.status.' ~ exercise.status)|trans|capitalize}}
         </span>
     </div>
     <div>
         <span>
-            Keywords:
+            {%trans%}ak-exercises-list.labels.keywords{%endtrans%}
         </span>
         <span>
         {% if exercise.keywords %}
             {% for tag in exercise.keywords %}
                 <span title="{{tag}}">
-                    {{ tag }}
+                    {{ tag|capitalize}}
                 </span>
             {% endfor %}
         {% else %}
             <span class="text-muted">
-                -- Not specified  --
+                {%trans%}ak-exercises-list.labels-values.not-specified{%endtrans%}
             </span>
         {% endif %}
         </span>
     </div>
     <div>
         <span>
-            Type:
+            {%trans%}ak-exercises-list.labels.type{%endtrans%}
         </span>
         {% if exercise.type %}
             <span>
-                {{exercise.type}}
+            {{('ak-exercises-list.labels-values.type.' ~ exercise.type)|trans|capitalize}}
             </span>
         {% else %}
             <span class="text-muted">
-                -- Not specified --
+                {%trans%}ak-exercises-list.labels-values.not-specified{%endtrans%}
             </span>
         {% endif %}
     </div>
     <div>
         <span>
-            Platform:
+            {%trans%}ak-exercises-list.labels.platform{%endtrans%}
         </span>
         {% if exercise.platform %}
             <span>
-                {{exercise.platform}}
+                {{exercise.platform|capitalize}}
             </span>
         {% else %}
             <span class="text-muted">
-                -- Not specified --
+                {%trans%}ak-exercises-list.labels-values.not-specified{%endtrans%}
             </span>
         {% endif %}
     </div>
     <div>
         <span>
-            Programming languages:
+            {%trans%}ak-exercises-list.labels.programmingLanguages{%endtrans%}
         </span>
         <span>
         {% if exercise.programmingLanguages %}
             {% for codeLang in exercise.programmingLanguages %}
                 <span title="{{codeLang}}">
-                    {{ codeLang }}
+                    {{ codeLang|capitalize}}
                 </span>
             {% endfor %}
         {% else %}
             <span class="text-muted">
-                -- Not specified  --
+                {%trans%}ak-exercises-list.labels-values.not-specified{%endtrans%}
             </span>
         {% endif %}
         </span>

@@ -4,7 +4,7 @@
     <span class="flx-cntnr flx-row flx-nowrap flx-start items-center">
         <span class="title-text-span" tabindex="0">{{ main.getTitle() }}</span>
         <span class="mainType-text-span mr-3" id="mainType">
-            {{ type }}
+            {{('main-title.title.' ~ type)|trans}}
         </span>
         <a id="toolTitleEditLink" class="toolTitleAction" href="javascript:void(0);" onclick="editTitleText();">
             <span class="fa fa-fw fa-pencil-square-o" aria-hidden="true"></span>
