@@ -39,7 +39,7 @@ if ($USER->instructor) {
         addMenuItem($menu, 'fa-comments', 'navbarmenu.usages', $usagesSubmenu);
         
         $buildSubmenu = [
-            renderMenuEntry("navbarmenu.exercises.create", 'create-exercise.php'),
+            // renderMenuEntry("navbarmenu.exercises.create", 'create-exercise.php'),
             renderMenuEntry("navbarmenu.exercises.list", 'exercises-list.php'),
             renderMenuEntry("navbarmenu.exercises.authorkit", 'ak-projects-list.php'),
             renderMenuEntry("navbarmenu.exercises.codetest", 'exercises-management.php'),
