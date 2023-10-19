@@ -43,7 +43,7 @@ foreach($exercisesContentArr as $exercise) {
 
         $main->saveExercises(array($exerciseCls));
     } else { //Authorkit
-        // downloadAkExercise($exercise['akId']);
+        downloadAkExercise($exercise['akId']);
         $akExercise = \CT\CT_Exercise::findExerciseForImportAkId($exercise['akId']);
         $akExercise->save();
     }
