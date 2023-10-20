@@ -1,6 +1,7 @@
 <?php
 require_once('initTsugi.php');
 include('views/dao/menu.php'); // for -> $menu
+include('util/Functions.php');
 
 $main = new \CT\CT_Main($_SESSION["ct_id"]);
 
@@ -30,13 +31,22 @@ $main->setPoints($mainContentArr['points']);
 $main->save();
 
 // Main update <<
-
+$importedExercises = array();
 foreach($exercisesContentArr as $exercise) {
 
-    $exerciseCls = new \CT\CT_ExerciseCode();
-    $exerciseCls->setFromObject($exercise);
-    $exerciseCls->setCtId($_SESSION["ct_id"]);
-    $exerciseCls->save();
+    // if exercise was created with codetest and not in authorkit
+    if(isset($exercise['codeExercise']) && ($exercise['codeExercise'] || ($exercise['codeExercise'] == 'true'))){ //codetest
+        $exerciseCls = new \CT\CT_ExerciseCode();
+        $exerciseCls->setFromObject($exercise);
+        $exerciseCls->setCtId($_SESSION["ct_id"]);
+        $exerciseCls->save();
+
+        $main->saveExercises(array($exerciseCls));
+    } else { //Authorkit
+        downloadAkExercise($exercise['akId']);
+        $akExercise = \CT\CT_Exercise::findExerciseForImportAkId($exercise['akId']);
+        $akExercise->save();
+    }
 }
 
 $_SESSION['success'] = "Main actualizado";

@@ -68,26 +68,12 @@ if ($USER->instructor) {
         array_push($exercises, $exercise);
 
         //save the exercise on the repository
-        $result = $main->saveExercises($exercises);
+        $main->saveExercises($exercises);
 
 
         foreach ($temporalFile as $key => $value) {
             fclose($value);
         }
-
-        //map the returned exercise
-        $object = json_decode($result);
-
-        $exercise1 = new \CT\CT_ExerciseCode();
-        $exercise1->setFromObject($object);
-        $exercise1->setCtId($_SESSION["ct_id"]);
-
-        if (!empty($exercise->getExerciseId()) && !empty($exercise1->getExerciseId()) && $exercise->getExerciseId() != $exercise1->getExerciseId()) {
-            $exercise->delete();
-        }
-
-        //Save the returned exercise on the db
-        $exercise1->save();
 
         $_SESSION['success'] = $translator->trans('backend-messages.add.exercise.success');
         header('Location: ' . addSession('../exercises-list.php'));
