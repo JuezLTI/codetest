@@ -92,10 +92,10 @@ class CT_Main implements \JsonSerializable
 
             if (!empty($exercise->getExerciseId()) && !empty($exercise1->getExerciseId()) && $exercise->getExerciseId() != $exercise1->getExerciseId()) {
                 $exercise->delete();
-            }
 
-            //Save the returned exercise on the db
-            $exercise1->save();
+                //Save the returned exercise on the db
+                $exercise1->save();
+            }
 
         }
     }
