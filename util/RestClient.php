@@ -68,7 +68,7 @@ class RestClient
         return $this->client;
     }
 
-    public static function generatePOSTData($exercisesCode, $files){
+    public static function generatePOSTData($exercisesCode, $files, $updateExercise = false){
 
         $formFields = [
             'json' => json_encode($exercisesCode)
@@ -87,6 +87,8 @@ class RestClient
             }
             $formFields['recuperated_libraries'] = json_encode($recLibs);
         }
+
+        $formFields['update_exercise'] = json_encode($updateExercise);
 
         $formData = new FormDataPart($formFields);
 

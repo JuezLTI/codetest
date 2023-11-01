@@ -68,7 +68,7 @@ if ($USER->instructor) {
         array_push($exercises, $exercise);
 
         //save the exercise on the repository
-        $main->saveExercises($exercises);
+        $main->saveExercises($exercises, $updateExercise = !$exercise->isNew());
 
 
         foreach ($temporalFile as $key => $value) {

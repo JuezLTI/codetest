@@ -72,14 +72,20 @@ class CT_Main implements \JsonSerializable
     }
 
     //Save exercise on the repo
-    function saveExercises($exercises) {
+    function saveExercises($exercises, $updateExercises) {
         global $REST_CLIENT_REPO;
 
         foreach($exercises as $exercise){
 
             $saveExerciseRequest = $REST_CLIENT_REPO->
                                     getClient()->
-                                    request('POST','api/exercises/createExercise', $REST_CLIENT_REPO::generatePostData(array($exercise), $exercise->getLibraries()));
+                                    request('POST','api/exercises/createExercise',
+                                        $REST_CLIENT_REPO::generatePostData(
+                                            array($exercise),
+                                            $exercise->getLibraries(),
+                                            $updateExercises
+                                        )
+                                    );
 
             $result = $saveExerciseRequest->getContent();
 
@@ -90,13 +96,8 @@ class CT_Main implements \JsonSerializable
             $exercise1->setFromObject($object);
             $exercise1->setCtId($_SESSION["ct_id"]);
 
-            if (!empty($exercise->getExerciseId()) && !empty($exercise1->getExerciseId()) && $exercise->getExerciseId() != $exercise1->getExerciseId()) {
-                $exercise->delete();
-
-                //Save the returned exercise on the db
-                $exercise1->save();
-            }
-
+            //Save the returned exercise on the db
+            $exercise1->save();
         }
     }
 
