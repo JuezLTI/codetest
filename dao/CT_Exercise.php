@@ -330,13 +330,16 @@ class CT_Exercise implements \JsonSerializable {
     /**
      * @return \CT\CT_Answer[] $answers
      */
-    public function getAnswers() {
+    public function getAnswers($successful = false) {
         if (!is_array($this->answers)) {
 
             $this->answers = array();
             $query = \CT\CT_DAO::getQuery('exercise', 'getAnswers');
-            $arr = array(':exerciseId' => $this->getExerciseId(),
-                ':ctId' => $this->getCtId());
+            $arr = array(
+                ':exerciseId' => $this->getExerciseId(),
+                ':ctId' => $this->getCtId(),
+                ':answer_success' => $successful ? 1 : 0 // if $successful is true only get successful answers
+            );
             $answers = $query['PDOX']->allRowsDie($query['sentence'], $arr);
             $this->answers = \CT\CT_DAO::createObjectFromArray(\CT\CT_Answer::class, $answers);
         }
@@ -344,8 +347,12 @@ class CT_Exercise implements \JsonSerializable {
         return $this->answers;
     }
 
-    public function getNumberAnswers() {
-        return count($this->getAnswers());
+    public function getNumberAnswers($successful = false) {
+        return count($this->getAnswers($successful));
+    }
+
+    public function hasAnyAnswer($successful = false) {
+        return $this->getNumberAnswers($successful) > 0;
     }
 
     public function getExerciseCode()

@@ -122,7 +122,7 @@ class CT_DAO {
             'exists' => "SELECT exercise_id as exerciseId FROM {$connection['p']}ct_exercise WHERE "
             . "exercise_id = :exercise_id AND ct_id = :ct_id;",
             'getAnswers' => "SELECT * FROM {$connection['p']}ct_answer "
-                . "WHERE exercise_id = :exerciseId AND ct_id = :ctId",
+                . "WHERE exercise_id = :exerciseId AND ct_id = :ctId AND answer_success >= :answer_success",
             'fixUpExerciseNumbers' => "SET @exercise_num = 0; UPDATE {$connection['p']}ct_exercise "
                 . "set exercise_num = (@exercise_num:=@exercise_num+1) "
                 . "WHERE ct_id = :ctId ORDER BY exercise_num",
