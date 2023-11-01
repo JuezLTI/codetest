@@ -59,7 +59,9 @@ echo $twig->render('pages/student-view.php.twig', array(
     'menu' => $menu,
     'user' => $user,
     // Return true when have a correct usage if not returns false
-    'correctUsage' => $firstExerciseId ? $user->getHaveCorrectUsage($firstExerciseId, $user_id) : false,
+    // 'correctUsage' => $firstExerciseId ? $user->getHaveCorrectUsage($firstExerciseId, $user_id) : false,
+    // TODO When we want ask the students about exercises, uncomment the previous line and delete the next
+    'correctUsage' => true,
     // All codelanguages but ordened by last used language
     'codeLanguagesOrdened' => isset($code_languages) ? $code_languages : null,
     'exercises' => $exercises,
