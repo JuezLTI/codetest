@@ -1,6 +1,6 @@
 <?php
 require_once "../initTsugi.php";
-global $translator, $REST_CLIENT_AUTHOR;
+global $translator;
 use Symfony\Component\HttpClient\HttpClient;
 
 $currentTime = new DateTime('now', new DateTimeZone($CFG->timezone));

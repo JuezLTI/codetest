@@ -36,20 +36,6 @@ $twig = new \Twig\Environment($loader, [
 
 $jsonData = JSONManager::getJsonData(getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG->codetestBasePath. '/rest-data.json');
 
-
-if(!empty($jsonData['authorkit']['token'])){
-    $restClientAuthorkit = new RestClient($CFG->apiConfigs['authorkit']['baseUrl'], $jsonData['authorkit']['token']['accessToken']);
-}else{
-    $restClientAuthorkit = new RestClient($CFG->apiConfigs['authorkit']['baseUrl'], null);
-    $restClientAuthorkit->loginAuthor(
-        $CFG->apiConfigs['authorkit']['user'],
-        $CFG->apiConfigs['authorkit']['pass']
-    );
-}
-$restClientAuthorkit->checkAuthorkitIsOnline();
-$GLOBALS['REST_CLIENT_AUTHOR'] = $restClientAuthorkit;
-
-
 if(!empty($jsonData['spring-repo']['token'])){
     $restClientRepo = new RestClient($CFG->apiConfigs['spring-repo']['baseUrl'], $jsonData['spring-repo']['token']['accessToken']);
 }else{

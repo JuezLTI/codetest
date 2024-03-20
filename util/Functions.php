@@ -2,7 +2,7 @@
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 
-require_once('initTsugi.php');
+require_once('initAuthorkit.php');
 
 function getFilenameFromDisposition($value) {
     $value = trim($value);

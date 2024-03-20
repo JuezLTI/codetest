@@ -1,5 +1,5 @@
 <?php
-require_once('initTsugi.php');
+require_once('util/initAuthorkit.php');
 include('views/dao/menu.php'); // for -> $menu
 
 global $REST_CLIENT_AUTHOR;
