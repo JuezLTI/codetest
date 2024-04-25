@@ -14,7 +14,7 @@ foreach ($answer->getTestsOutput() as $key => $testOutput) {
 		|| $testOutput->visibleTest !== 0
 	) {
 		echo "Test: ".$key."\n";
-		echo \CT\CT_Answer::getDiffWithSolution($testOutput->expectedOutput, $testOutput->obtainedOutput);
+		echo \CT\CT_Answer::getDiffWithSolution($testOutput->obtainedOutput, $testOutput->expectedOutput);
 	}
 }
 ?>
