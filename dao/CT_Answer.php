@@ -203,10 +203,21 @@ class CT_Answer
      */
     public function setTestsOutput($tests_output)
     {
-        if(is_array($tests_output)){
-          $this->tests_output = $tests_output;
-        } else if(is_string($tests_output)){
-          $this->tests_output = json_decode($tests_output);
+        $this->tests_output = array();
+        if(!is_array($tests_output) && is_string($tests_output)){
+            $tests_output = json_decode($tests_output);
+        }
+
+        foreach($tests_output as $testOutput) {
+            if(is_object($testOutput)
+                && isset($testOutput->obtainedOutput) && isset($testOutput->expectedOutput)
+                && ($testOutput->obtainedOutput != $testOutput->expectedOutput)
+            ) {
+                $testOutput->obtainedOutput = self::getDiffWithSolution($testOutput->obtainedOutput, $testOutput->expectedOutput);
+                array_push($this->tests_output, $testOutput);
+            } else {
+                array_push($this->tests_output, $testOutput);
+            }
         }
     }
 
