@@ -77,7 +77,7 @@
                         </div>
                         <div class="flex items-center justify-between gap-2">
                             <span class="result-text">
-                                {{ (answer.getAnswerOutput()|length > 0 ? answer.getAnswerOutput()|trans : 'student-exercise.blank'|trans) }}
+                                {{ (answer.getAnswerOutput()|length > 0 ? mdConverter.text(answer.getAnswerOutput())|raw : 'student-exercise.blank'|trans) }}
                             </span>
                             {% embed "components/answer-info-box.php.twig" with { answer: answer } only %}
                             {% endembed %}

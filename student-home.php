@@ -3,6 +3,8 @@ require_once('initTsugi.php');
 include('views/dao/menu.php');
 include('util/Functions.php');
 
+require_once('vendor/erusev/parsedown/Parsedown.php');
+
 $SetID = $_SESSION["ct_id"];
 $main = new \CT\CT_Main($_SESSION["ct_id"]);
 $toolTitle = $main->getTitle() ? $main->getTitle() : "Code Test";
@@ -12,6 +14,8 @@ $currentExerciseNumber = isset($_GET['exerciseNum']) ? $_GET['exerciseNum'] : 1;
 $student_language = $_SESSION["lti"]["user_locale"];
 $user_id = $_SESSION["lti"]["user_id"];
 $user = new \CT\CT_User($user_id);
+
+$Parsedown = new Parsedown();
 
 if ($totalExercises > 0) {
 
@@ -73,5 +77,6 @@ echo $twig->render('pages/student-view.php.twig', array(
     'main' => $main,
     'validatorService' => $validatorService,
     'CFG' => $CFG,
+    'mdConverter' => $Parsedown
 )
 );
