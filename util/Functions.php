@@ -78,7 +78,7 @@ function downloadAkExercise($exerciseId) {
 
     $uploadResponse = $REST_CLIENT_REPO->getClient()->request('POST', 'api/exercises/import-file', [
         'headers' => $formData->getPreparedHeaders()->toArray(),
-        'body' => $formData->bodyToIterable(),
+        'body' => $formData->bodyToString(),
 
     ]);
 
