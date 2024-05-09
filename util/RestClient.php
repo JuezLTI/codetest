@@ -94,7 +94,7 @@ class RestClient
 
         return array(
             'headers' => $formData->getPreparedHeaders()->toArray(),
-            'body' => $formData->bodyToString(),
+            'body' => $formData->bodyToIterable(),
         );
     }
 
