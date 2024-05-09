@@ -75,10 +75,8 @@
                         <i id="modified"></i>
                         <div class="border-t border-blueGray-300">
                         </div>
-                        <div class="flex items-center justify-between gap-2">
-                            <span class="result-text">
-                                {{ (answer.getAnswerOutput()|length > 0 ? mdConverter.text(answer.getAnswerOutput())|trans|raw : 'student-exercise.blank'|trans) }}
-                            </span>
+                        <div class="items-center justify-between gap-2">
+                            {{ (answer.getAnswerOutput()|length > 0 ? mdConverter.text(answer.getAnswerOutput())|trans|raw : 'student-exercise.blank'|trans) }}
                             {% embed "components/answer-info-box.php.twig" with { answer: answer } only %}
                             {% endembed %}
                         </div>
