@@ -1,5 +1,7 @@
 <?php
 require_once "../initTsugi.php";
+require_once('../vendor/erusev/parsedown/Parsedown.php');
+
 global $translator;
 use Symfony\Component\HttpClient\HttpClient;
 
@@ -10,6 +12,7 @@ $exerciseNum = $_POST["exerciseNum"];
 $_SESSION["last_used_language"] = isset($_POST["answer_language"]) ? $_POST["answer_language"] : "";
 $user_id = $_SESSION["lti"]["user_id"];
 $user = new \CT\CT_User($user_id);
+$parsedown = new Parsedown();
 
 // In databases doesn't exists answer_language, so we use -1
 $answerLanguage = $_POST["answer_language"] ?? '';
@@ -51,7 +54,7 @@ if (!isset($answerText) || trim($answerText) == "") {
         $result["answer_content"] = true;
         $result['exists'] = $array['exists'];
         $result['success'] = $answer->getAnswerSuccess();
-        $result['answerOutput'] = $answerOutput['feedback'];
+        $result['answerOutput'] = $parsedown->text($answerOutput['feedback']);
         $result['studentTestOutputRender'] = $twig->render(
             'exercise/student-solution-output.php.twig',
             array(

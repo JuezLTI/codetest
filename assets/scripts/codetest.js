@@ -684,7 +684,7 @@ const updateExerciseBadge = (data) => {
         el.classList.remove('fa-times')
         el.classList.remove('fa-file')
     })
-    document.querySelector(studentFooterItemLabel).textContent = data.answerOutput
+    document.querySelector(studentFooterItemLabel).innerHTML = data.answerOutput
 
     if (data.success) {
         elements.forEach(el => {
