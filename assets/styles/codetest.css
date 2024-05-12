@@ -144,6 +144,10 @@ p.response-text {
 .change.change-rep tr[data-type="-"] {
     color: red;
 }
+.diff.explain{
+        margin: 0 20px;
+        float: right;
+}
 .results-table-hdr {
     word-break: break-word;
 }

@@ -12,5 +12,6 @@
                         {{ answer.getDiffWithSolution(testResult.obtainedOutput, testResult.expectedOutput) | raw }}
                     </div>
                 </div>
-            {% endfor %}        
+            {% endfor %}
+            {{ include('answer/explainDiffs.php.twig') }}
 {% endblock %}

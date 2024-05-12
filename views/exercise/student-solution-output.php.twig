@@ -39,7 +39,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
+                                {{ include('answer/explainDiffs.php.twig') }}
                             {% else %}                             
                                 <p class='pb-1 mt-1 mx-1 border p-4'>{%trans%}student-exercise.hidden-test{%endtrans%}<p>
                             {% endif %}
