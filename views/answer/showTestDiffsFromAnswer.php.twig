@@ -1,0 +1,16 @@
+{% extends "mainTemplate.php.twig" %}
+{% block pageTitle %}
+{{ OUTPUT.pageTitle('pages-title.result.by.exercise'|trans, true, false) }}
+{% endblock %}
+{% block content %}
+            {% for testResult in tests %}
+                <div class="w-[48%] flex flex-col" style="flex-basis:48%">
+                    <div class="text-center">
+                        {%trans%}new-exercise-form.labels.test-output{%endtrans%}
+                    </div>
+                    <div style="border-width: 3px" class="h-full min-h-[150px]border {{ testResult.classify == "Accepted" ? 'border-green-600' : 'border-red-600' }}">i
+                        {{ answer.getDiffWithSolution(testResult.obtainedOutput, testResult.expectedOutput) | raw }}
+                    </div>
+                </div>
+            {% endfor %}        
+{% endblock %}
