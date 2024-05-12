@@ -209,6 +209,7 @@ class CT_Answer
         }
 
         foreach($tests_output as $testOutput) {
+/*           
             if(is_object($testOutput)
                 && isset($testOutput->obtainedOutput) && isset($testOutput->expectedOutput)
                 && ($testOutput->obtainedOutput != $testOutput->expectedOutput)
@@ -217,7 +218,8 @@ class CT_Answer
                 array_push($this->tests_output, $testOutput);
             } else {
                 array_push($this->tests_output, $testOutput);
-            }
+            } */
+            array_push($this->tests_output, $testOutput);
         }
     }
 
@@ -280,13 +282,17 @@ class CT_Answer
         }
     }
 
-    public static function getDiffWithSolution($outputAnswer, $solution)
-    {
-    global $CFG;
-    // include the Diff class
-    require_once $CFG->codetestRootDir . '/util/class.Diff.php';
-    // compare two strings line by line
-    return \Diff::toString(\Diff::compare($solution, $outputAnswer));
+    public function getDiffWithSolution($outputAnswer, $solution)
+        {
+        global $CFG;
+    /*     // include the Diff class
+        require_once $CFG->codetestRootDir . '/util/class.Diff.php';
+        // compare two strings line by line
+        return \Diff::toString(\Diff::compare($solution, $outputAnswer)); */
+        // include the Diff class
+        require_once $CFG->codetestRootDir . '/util/HTML_Diff.class.php';
+        // compare two strings line by line
+        return \HTML_Diff::htmlDiff($solution, $outputAnswer);
     }
 
 }

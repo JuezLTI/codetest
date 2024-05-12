@@ -113,6 +113,18 @@ p.response-text {
     font-size: large;
     font-weight: bold;
 }
+.change.change-ins{
+    color: mediumblue;
+}
+.change.change-rep tr[data-type="+"] {
+    color: mediumblue;
+}
+.change.change-del{
+    color: red;
+}
+.change.change-rep tr[data-type="-"] {
+    color: red;
+}
 .results-table-hdr {
     word-break: break-word;
 }

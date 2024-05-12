@@ -34,7 +34,9 @@
                                             <div class="text-center">
                                                 {%trans%}new-exercise-form.labels.test-output{%endtrans%}
                                             </div>
-                                            <pre style="border-width: 3px" class="h-full min-h-[150px]border {{ testResult.classify == "Accepted" ? 'border-green-600' : 'border-red-600' }}">{{ testResult.obtainedOutput | raw }}</pre>
+                                            <div style="border-width: 3px" class="h-full min-h-[150px]border {{ testResult.classify == "Accepted" ? 'border-green-600' : 'border-red-600' }}">i
+                                              {{ answer.getDiffWithSolution(testResult.obtainedOutput, testResult.expectedOutput) | raw }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div> 
