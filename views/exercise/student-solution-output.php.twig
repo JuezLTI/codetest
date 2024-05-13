@@ -34,13 +34,19 @@
                                             <div class="text-center">
                                                 {%trans%}new-exercise-form.labels.test-output{%endtrans%}
                                             </div>
-                                            <div style="border-width: 3px" class="h-full min-h-[150px]border {{ testResult.classify == "Accepted" ? 'border-green-600' : 'border-red-600' }}">i
-                                              {{ answer.getDiffWithSolution(testResult.obtainedOutput, testResult.expectedOutput) | raw }}
+                                            <div style="border-width: 3px" class="h-full min-h-[150px]border {{ testResult.classify == "Accepted" ? 'border-green-600' : 'border-red-600' }}">
+                                              {% if(testResult.classify == "Accepted") %}
+                                                <pre class="min-h-[150px]">{{ testResult.obtainedOutput | raw }}</pre>
+                                              {% else %}
+                                                {{ answer.getDiffWithSolution(testResult.obtainedOutput, testResult.expectedOutput) | raw }}
+                                              {% endif %}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                {{ include('answer/explainDiffs.php.twig') }}
+                                {% if(testResult.classify != "Accepted") %}
+                                    {{ include('answer/explainDiffs.php.twig') }}
+                                {% endif %}
                             {% else %}                             
                                 <p class='pb-1 mt-1 mx-1 border p-4'>{%trans%}student-exercise.hidden-test{%endtrans%}<p>
                             {% endif %}
