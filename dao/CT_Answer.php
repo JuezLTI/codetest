@@ -17,6 +17,8 @@ class CT_Answer
     private $answer_output;
     private $tests_output;
 
+    const MAX_TESTOUTPUT_SIZE = 16000;
+
     public function __construct($answer_id = null)
     {
         $context = array();
@@ -209,16 +211,10 @@ class CT_Answer
         }
 
         foreach($tests_output as $testOutput) {
-/*           
-            if(is_object($testOutput)
-                && isset($testOutput->obtainedOutput) && isset($testOutput->expectedOutput)
-                && ($testOutput->obtainedOutput != $testOutput->expectedOutput)
-            ) {
-                $testOutput->obtainedOutput = self::getDiffWithSolution($testOutput->obtainedOutput, $testOutput->expectedOutput);
-                array_push($this->tests_output, $testOutput);
-            } else {
-                array_push($this->tests_output, $testOutput);
-            } */
+            if(strlen(json_encode($testOutput)) > self::MAX_TESTOUTPUT_SIZE){
+                $testOutput['obtainedOutput'] = 'Test too big to be recorded. Please, reduce the output solution.';
+                $testOutput['outputDifferences'] = 'Test too big to be recorded. Please, reduce the output solution.';
+            }
             array_push($this->tests_output, $testOutput);
         }
     }
