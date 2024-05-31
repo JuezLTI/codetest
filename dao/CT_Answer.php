@@ -212,8 +212,13 @@ class CT_Answer
 
         foreach($tests_output as $testOutput) {
             if(strlen(json_encode($testOutput)) > self::MAX_TESTOUTPUT_SIZE){
-                $testOutput['obtainedOutput'] = 'Test too big to be recorded. Please, reduce the output solution.';
-                $testOutput['outputDifferences'] = 'Test too big to be recorded. Please, reduce the output solution.';
+                if(is_object($testOutput)) {
+                    $testOutput->obtainedOutput = 'Test too big to be recorded. Please, reduce the output solution.';
+                    $testOutput->outputDifferences = 'Test too big to be recorded. Please, reduce the output solution.';
+                } else {
+                    $testOutput['obtainedOutput'] = 'Test too big to be recorded. Please, reduce the output solution.';
+                    $testOutput['outputDifferences'] = 'Test too big to be recorded. Please, reduce the output solution.';
+                }
             }
             array_push($this->tests_output, $testOutput);
         }
