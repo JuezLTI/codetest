@@ -21,7 +21,7 @@
                 {% if exercise.getKeywords() %}
                     {% for tag in exercise.getKeywords() %}
                         <pre>
-                            {{ tag|capitalize}}
+                            {{ tag }}
                         </pre>
                     {% endfor %}
                 {% else %}
