@@ -254,7 +254,6 @@ class CT_Exercise implements \JsonSerializable {
         $response = $REST_CLIENT_REPO->getClient()->request('GET', $url);
         $exerciseArray = $response->toArray();
         $object = json_decode(json_encode($exerciseArray));
-
         $CTExercise = new CT_ExerciseCode();
         $CTExercise->setFromObject($object);
 

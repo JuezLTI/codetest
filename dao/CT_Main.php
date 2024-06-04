@@ -161,6 +161,11 @@ class CT_Main implements \JsonSerializable
             $exercises = $query['PDOX']->allRowsDie($query['sentence'], $arr);
             $this->exercises = \CT\CT_DAO::createObjectFromArray(\CT\CT_Exercise::class, $exercises);
         }
+        $fullExercises = array();
+        foreach($this->exercises as $exercise) {
+            array_push($fullExercises, \CT\CT_Exercise::findExerciseForImportId($exercise->getExerciseId()));
+        }
+        $this->exercises = $fullExercises;
         return $this->exercises;
     }
 

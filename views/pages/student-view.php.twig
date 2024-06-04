@@ -27,7 +27,7 @@
         </div>
         <div style="clear: both"></div>
 
-        {% set exercise = exercises[exerciseNum-1].getExerciseCode() %}
+        {% set exercise = exercises[exerciseNum-1] %}
         {% set exerciseId = exercise.getExerciseId() %}
         {% set answer = user.getAnswerForExercise(exerciseId, exercise.getCtId()) %}
 

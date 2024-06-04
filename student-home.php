@@ -39,7 +39,6 @@ if ($totalExercises > 0) {
         $exerciseStatementsResponse = $REST_CLIENT_REPO->getClient()->request('GET', "api/exercises/$firstExerciseAkId/statements");
         $statements_list = $exerciseStatementsResponse->toArray();
     }
-
     foreach ($statements_list as $statement) {
         if ($statement) {
             $statement_value = $statement['statementValue'];

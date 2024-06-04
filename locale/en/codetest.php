@@ -261,7 +261,7 @@ return [
     ],
     "new-exercise-form" => [
         "exercisetitle" => "Exercise Title",
-        "keywordsseparatedlines" => "Keywords (separated by lines)",
+        "keywordsseparatedlines" => "Keywords (separated by commas)",
         "mustcontainseparatedlines" => "Must contain",
         "shouldntcontain" => "Shouldn't contain",
         "labels" => [

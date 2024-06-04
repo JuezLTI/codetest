@@ -12,6 +12,25 @@
             <div class="ex-statement">
                 <pre class="bg-[#ffffff8c] backdrop-filter backdrop-blur-lg hover:bg-white transition-colors h-[500px] whitespace-normal">{{statementValue|raw}}</pre>
             </div>
+
+            <div>
+                <span>
+                    {%trans%}ak-exercises-list.labels.keywords{%endtrans%}
+                </span>
+                <span>
+                {% if exercise.getKeywords() %}
+                    {% for tag in exercise.getKeywords() %}
+                        <pre>
+                            {{ tag|capitalize}}
+                        </pre>
+                    {% endfor %}
+                {% else %}
+                    <pre>
+                        {%trans%}ak-exercises-list.labels-values.not-specified{%endtrans%}
+                    <pre>
+                {% endif %}
+                </span>
+            </div>
         </div>
 
         {%

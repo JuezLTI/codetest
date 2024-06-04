@@ -261,7 +261,7 @@ return [
     ],
     "new-exercise-form" => [
         "exercisetitle" => "Título de la pregunta",
-        "keywordsseparatedlines" => "Etiquetas (separadas por líneas)",
+        "keywordsseparatedlines" => "Etiquetas (separadas por comas)",
         "mustcontainseparatedlines" => "Debe contener",
         "shouldntcontain" => "No debería contener",
         "labels" => [
