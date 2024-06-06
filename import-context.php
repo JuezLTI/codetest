@@ -13,10 +13,9 @@ function getLibrariesOnExercise($librariesPath) {
             $metadataContent = file_get_contents($metadataPath);
             $metadata = json_decode($metadataContent, true);
             if (isset($metadata['pathname']) && isset($metadata['id'])) {
-                $libraries[$metadata['id']] = array(
-                    'path' => $librariesPath.DIRECTORY_SEPARATOR.$metadata['id'],
+                $libraries[] = array(
                     'name' => $metadata['pathname'],
-                    'id' => $metadata['id']
+                    'path' => $librariesPath.DIRECTORY_SEPARATOR.$metadata['id'].DIRECTORY_SEPARATOR.$metadata['pathname'],
                 );
             }
         }
@@ -24,8 +23,8 @@ function getLibrariesOnExercise($librariesPath) {
     return $libraries;
 }
 
-$filesystem = new Filesystem();
 $main = new \CT\CT_Main($_SESSION["ct_id"]);
+$filesystem = new Filesystem();
 $tempFolder = '/tmp';
 
 $importFile = $_FILES['import-file'];
