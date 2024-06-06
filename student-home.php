@@ -18,10 +18,10 @@ $user = new \CT\CT_User($user_id);
 $Parsedown = new Parsedown();
 
 if ($totalExercises > 0) {
-
     $firstExerciseAkId = $exercises[$currentExerciseNumber - 1]->getAkId();
     $firstExerciseId = $exercises[$currentExerciseNumber - 1]->getExerciseId();
     $isAK_exercise = !$exercises[$currentExerciseNumber - 1]->getCodeExercise();
+
     if ( $USER->instructor && $isAK_exercise) {
         $renewed = downloadAkExercise($firstExerciseAkId);
     }

@@ -256,6 +256,10 @@ class CT_Exercise implements \JsonSerializable {
         $object = json_decode(json_encode($exerciseArray));
         $CTExercise = new CT_ExerciseCode();
         $CTExercise->setFromObject($object);
+        if($exerciseOriginal = self::withId($id)){
+            $CTExercise->setExerciseNum($exerciseOriginal->getExerciseNum());
+            $CTExercise->setCodeExercise($exerciseOriginal->getCodeExercise());
+        }
 
         return $CTExercise;
     }
@@ -277,6 +281,18 @@ class CT_Exercise implements \JsonSerializable {
         $CTExercise->setFromObject($object);
 
         return $CTExercise;
+    }
+
+    //Find exercise for export
+    static function findExerciseForExport($id) {
+        global $REST_CLIENT_REPO;
+        $fileContent = null;
+        $url = "api/exercises/$id/export";
+        $response = $REST_CLIENT_REPO->getClient()->request('GET', $url);
+        if ($response->getStatusCode() == 200) {
+            $fileContent = $response->getContent();
+        }
+        return $fileContent;
     }
 
     //Find libaries by exercise id

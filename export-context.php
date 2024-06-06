@@ -3,6 +3,7 @@ require_once('initTsugi.php');
 include('views/dao/menu.php'); // for -> $menu
 global $REST_CLIENT_REPO;
 
+$tempFolder = 'tmp';
 $main = new \CT\CT_Main($_SESSION["ct_id"]);
 $exercises = $main->getExercises();
 
@@ -25,28 +26,8 @@ $exercisesMeta = $exercisesMetaRequest->toArray();
 
 $exercisesMetaMap = array_reduce($exercisesMeta,function($acc, $el){
     $acc[$el['id']] = $el;
-    
     return $acc;
-    
 },[]);
-
-$in = str_repeat('?,', count($exercise_ids) - 1) . '?';
-
-// --- Code exercises --- //
-$codeExercises = null;
-
-$iteration = 1;
-$queryCodeQ = \CT\CT_DAO::getQuery('main', 'codeExercisesExport');
-$queryCodeQ = str_replace(":exercises_in", $in, $queryCodeQ);
-$statementCodeQ = $queryCodeQ['PDOX']->prepare($queryCodeQ['sentence']);
-foreach($exercise_ids as $exerciseId){
-    $statementCodeQ->bindValue($iteration, $exerciseId);
-    $iteration++;
-}
-$statementCodeQ->execute();
-$statementResultCodeQ = $statementCodeQ->fetchAll(PDO::FETCH_ASSOC);
-$codeExercises = \CT\CT_DAO::createObjectFromArray(\CT\CT_ExerciseCode::class, $statementResultCodeQ);
-
 
 // Get exercise subtypes - < < <
 $clone_main = clone $main;
@@ -76,27 +57,18 @@ $clone_exercises = array_map(function($el){
 } ,$exercises);
 $clone_exercises = json_decode(json_encode($clone_exercises), true);
 
-$clone_ex_code = array_map(function($el){
-    $el->setCtId(null);
-    return $el;
-} ,$codeExercises);
-$clone_ex_code = json_decode(json_encode($clone_ex_code), true);
 $exercisesMappedWithMeta = $toArrayWithMeta($clone_exercises);
-
 // ---------------------------------------
-$tempFolder = '/tmp';
 
 $mainFilename = "$tempFolder/main.json";
 $fileHandler = fopen($mainFilename, 'w');
 fwrite($fileHandler, json_encode($clone_main, JSON_PRETTY_PRINT));
+fclose($fileHandler);
 
 $exercisesFilename = "$tempFolder/exercises.json";
 $fileHandler = fopen($exercisesFilename, 'w');
 fwrite($fileHandler, json_encode($exercisesMappedWithMeta, JSON_PRETTY_PRINT));
-
-$codeFilename = "$tempFolder/code_exercises.json";
-$fileHandler = fopen($codeFilename, 'w');
-fwrite($fileHandler, json_encode($clone_ex_code, JSON_PRETTY_PRINT));
+fclose($fileHandler);
 
 /// -------------------------------------
 $timeFormat = new DateTime('now', new DateTimeZone("Europe/Madrid"));
@@ -110,14 +82,24 @@ if(!$openZipFile) {
 }
 $zip->addFile($mainFilename,"main.json");
 $zip->addFile($exercisesFilename, "exercises/".basename($exercisesFilename));
-$zip->addFile($codeFilename, "exercises/".basename($codeFilename));
+
+$exercises = $main->getExercises();
+foreach($exercises as $exercise){
+    $compressedExercise = $exercise->findExerciseForExport($exercise->getAkId());
+    if($compressedExercise) {
+        file_put_contents("$tempFolder/{$exercise->getAkId()}.zip", $compressedExercise);
+        $zip->addFile("$tempFolder/{$exercise->getAkId()}.zip", "exercises/{$exercise->getAkId()}.zip");
+    }
+}
 $zip->close();
 
 unlink($mainFilename);
-unlink($exercisesFilename);
-unlink($codeFilename);
-
-
+foreach($exercises as $exercise){
+    if(!file_exists("$tempFolder/{$exercise->getAkId()}.zip")) {
+        continue;
+    }
+    unlink("$tempFolder/{$exercise->getAkId()}.zip");
+}
 
 $zipFilename_basename = basename($zipFinalFilename);
 $zipFilename_filesize = filesize($zipFinalFilename);

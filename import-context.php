@@ -4,6 +4,7 @@ include('views/dao/menu.php'); // for -> $menu
 include('util/Functions.php');
 
 $main = new \CT\CT_Main($_SESSION["ct_id"]);
+$tempFolder = 'tmp';
 
 $importFile = $_FILES['import-file'];
 $zip = new ZipArchive;
@@ -14,7 +15,6 @@ if ($zip->open($importFile['tmp_name']) !== TRUE) {
 
 $mainContent = $zip->getFromName('main.json');
 $mainContentArr = json_decode($mainContent, true);
-
 $exercisesContent = $zip->getFromName('exercises/exercises.json');
 $exercisesContentArr = json_decode($exercisesContent, true);
 
@@ -31,15 +31,22 @@ $main->setPoints($mainContentArr['points']);
 $main->save();
 
 // Main update <<
-$importedExercises = array();
 foreach($exercisesContentArr as $exercise) {
 
     // if exercise was created with codetest and not in authorkit
     if(isset($exercise['codeExercise']) && ($exercise['codeExercise'] || ($exercise['codeExercise'] == 'true'))){ //codetest
+        $filename = "{$exercise['akId']}.zip";
+        $exerciseContent = $zip->getFromName("exercises/{$filename}");
+        $tmpFilePath = $tempFolder.DIRECTORY_SEPARATOR.$filename;
+        file_put_contents($tmpFilePath, $exerciseContent);
+        $exerciseId = putExerciseOnRepo($tmpFilePath);
+        $exercise = \CT\CT_Exercise::findExerciseForImportId($exerciseId);
         $exerciseCls = new \CT\CT_ExerciseCode();
         $exerciseCls->setFromObject($exercise);
         $exerciseCls->setCtId($_SESSION["ct_id"]);
-        $main->saveExercises(array($exerciseCls), $updateExercises = false);
+        $exerciseCls->setCodeExercise(true);
+        $exerciseCls->save();
+        unlink($tmpFilePath);
     } else { //Authorkit
         downloadAkExercise($exercise['akId']);
         $akExercise = \CT\CT_Exercise::findExerciseForImportAkId($exercise['akId']);
@@ -49,4 +56,3 @@ foreach($exercisesContentArr as $exercise) {
 
 $_SESSION['success'] = "Main actualizado";
 header( 'Location: '.addSession('index.php')) ;
-

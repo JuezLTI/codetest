@@ -68,6 +68,13 @@ function downloadAkExercise($exerciseId) {
     foreach ($REST_CLIENT_AUTHOR->getClient()->stream($exerciseFileResponse) as $chunk) {
         fwrite($fileHandler, $chunk->getContent());
     }
+    fclose($fileHandler);
+
+    return putExerciseOnRepo($filename);
+}
+
+function putExerciseOnRepo($filename) {
+    global $REST_CLIENT_REPO, $TSUGI_LOCALE;
 
     $formFields = [
         'PHPSESSID' => session_id(),
@@ -87,4 +94,4 @@ function downloadAkExercise($exerciseId) {
 
     unlink($filename);
     return $uploadResponseBody;
-    }
+}

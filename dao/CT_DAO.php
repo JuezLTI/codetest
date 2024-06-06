@@ -93,6 +93,7 @@ class CT_DAO {
                 . "`modified` = :modified "
                 . "WHERE ct_id = :ctId",
             'delete' => "DELETE FROM {$connection['p']}ct_main WHERE ct_id = :mainId AND user_id = :userId",
+            'exercisesExport' => "SELECT * FROM {$connection['p']}ct_exercise WHERE `exercise_id` IN (:exercises_in )",
             'codeExercisesExport' => "SELECT * FROM {$connection['p']}ct_code_exercise WHERE `exercise_id` IN (:exercises_in )",
             'sqlExercisesExport' => "SELECT * FROM {$connection['p']}ct_sql_exercise WHERE `exercise_id` IN ( :exercises_in )",
         );
@@ -143,11 +144,10 @@ class CT_DAO {
                 . "VALUES (:exercise_id, :ct_id, :exercise_language, :exercise_input_grade, :exercise_output_grade, :exercise_solution )",
             'update' => "UPDATE {$connection['p']}ct_code_exercise set "
                 . "`exercise_language` = :exercise_language, "
-                . " `ct_id` = :ct_id,"
                 . "`exercise_input_grade` = :exercise_input_grade, "
                 . "`exercise_output_grade` = :exercise_output_grade, "
                 . "`exercise_solution` = :exercise_solution "
-                . "WHERE exercise_id = :exercise_id",
+                . "WHERE exercise_id = :exercise_id AND ct_id = :ct_id",
             'getById' => "SELECT * FROM {$connection['p']}ct_code_exercise "
                 . "WHERE exercise_id = :exercise_id",
         );
