@@ -67,6 +67,7 @@ foreach($exercisesContentArr as $exercise) {
                 $librariesNames = getLibrariesOnExercise($librariesPath);
                 $exerciseMain = $main->createExercise($exercise, strtolower($exercise['exercise_language']), $exercise["difficulty"], $librariesNames, $exercise['visibleTest']);
                 $main->saveExercises(array($exerciseMain), $updateExercises = false);
+                unlink($tmpFilePath . ".zip");
                 $filesystem->remove($tmpFilePath);
             }
         }
