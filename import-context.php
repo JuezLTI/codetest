@@ -2,12 +2,35 @@
 require_once('initTsugi.php');
 include('views/dao/menu.php'); // for -> $menu
 include('util/Functions.php');
+use Symfony\Component\Filesystem\Filesystem;
 
+function getLibrariesOnExercise($librariesPath) {
+    $libraries = array();
+    $directories = glob($librariesPath . '/*', GLOB_ONLYDIR);
+    foreach ($directories as $dir) {
+        $metadataPath = $dir . '/metadata.json';
+        if (file_exists($metadataPath)) {
+            $metadataContent = file_get_contents($metadataPath);
+            $metadata = json_decode($metadataContent, true);
+            if (isset($metadata['pathname']) && isset($metadata['id'])) {
+                $libraries[$metadata['id']] = array(
+                    'path' => $librariesPath.DIRECTORY_SEPARATOR.$metadata['id'],
+                    'name' => $metadata['pathname'],
+                    'id' => $metadata['id']
+                );
+            }
+        }
+    }
+    return $libraries;
+}
+
+$filesystem = new Filesystem();
 $main = new \CT\CT_Main($_SESSION["ct_id"]);
-$tempFolder = 'tmp';
+$tempFolder = '/tmp';
 
 $importFile = $_FILES['import-file'];
 $zip = new ZipArchive;
+$zipExercise = new ZipArchive;
 
 if ($zip->open($importFile['tmp_name']) !== TRUE) {
     exit("Invalid zip");
@@ -32,27 +55,30 @@ $main->save();
 
 // Main update <<
 foreach($exercisesContentArr as $exercise) {
-
     // if exercise was created with codetest and not in authorkit
     if(isset($exercise['codeExercise']) && ($exercise['codeExercise'] || ($exercise['codeExercise'] == 'true'))){ //codetest
-        $filename = "{$exercise['akId']}.zip";
-        $exerciseContent = $zip->getFromName("exercises/{$filename}");
-        $tmpFilePath = $tempFolder.DIRECTORY_SEPARATOR.$filename;
-        file_put_contents($tmpFilePath, $exerciseContent);
-        $exerciseId = putExerciseOnRepo($tmpFilePath);
-        $exercise = \CT\CT_Exercise::findExerciseForImportId($exerciseId);
-        $exerciseCls = new \CT\CT_ExerciseCode();
-        $exerciseCls->setFromObject($exercise);
-        $exerciseCls->setCtId($_SESSION["ct_id"]);
-        $exerciseCls->setCodeExercise(true);
-        $exerciseCls->save();
-        unlink($tmpFilePath);
+        $exerciseContent = $zip->getFromName("exercises/{$exercise['akId']}.zip");
+        if ($exerciseContent) {
+            $tmpFilePath = $tempFolder.DIRECTORY_SEPARATOR.$exercise['akId'];
+            file_put_contents($tmpFilePath . ".zip", $exerciseContent);
+            if ($zipExercise->open($tmpFilePath . ".zip") === TRUE) {
+                $zipExercise->extractTo($tmpFilePath);
+                $zipExercise->close();
+                $librariesPath = $tmpFilePath.DIRECTORY_SEPARATOR."libraries";
+                $librariesNames = getLibrariesOnExercise($librariesPath);
+                $exerciseMain = $main->createExercise($exercise, strtolower($exercise['exercise_language']), $exercise["difficulty"], $librariesNames, $exercise['visibleTest']);
+                $main->saveExercises(array($exerciseMain), $updateExercises = false);
+                $filesystem->remove($tmpFilePath);
+            }
+        }
     } else { //Authorkit
         downloadAkExercise($exercise['akId']);
         $akExercise = \CT\CT_Exercise::findExerciseForImportAkId($exercise['akId']);
         $akExercise->save();
     }
 }
+
+$zip->close();
 
 $_SESSION['success'] = "Main actualizado";
 header( 'Location: '.addSession('index.php')) ;

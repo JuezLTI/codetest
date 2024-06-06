@@ -76,7 +76,6 @@ class CT_Main implements \JsonSerializable
         global $REST_CLIENT_REPO;
 
         foreach($exercises as $exercise){
-
             $saveExerciseRequest = $REST_CLIENT_REPO->
                                     getClient()->
                                     request('POST','api/exercises/createExercise',
