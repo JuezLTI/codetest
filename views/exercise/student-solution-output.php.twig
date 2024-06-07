@@ -14,7 +14,11 @@
                             {% set render_in = '' %}
                         {% endif %}
                     {% endfor %}
-                    <div class="answer-output collapse {{ render_in }}">     
+                    <div class="answer-output collapse {{ render_in }}">
+                        <span>
+                            Show diffs:&nbsp;
+                            <input type="checkbox" id="toggleDiff">
+                        </span>
                         {% for testResult in answer.getTestsOutput() %}
                             {% if testResult.visible %}
                                 <div class='pb-1 mt-1 mx-1 border p-4'>
@@ -35,23 +39,40 @@
                                                 {%trans%}new-exercise-form.labels.test-output{%endtrans%}
                                             </div>
                                             <div style="border-width: 3px" class="h-full min-h-[150px]border {{ testResult.classify == "Accepted" ? 'border-green-600' : 'border-red-600' }}">
-                                              {% if(testResult.classify == "Accepted") %}
-                                                <pre class="min-h-[150px]">{{ testResult.obtainedOutput | raw }}</pre>
-                                              {% else %}
-                                                {{ answer.getDiffWithSolution(testResult.obtainedOutput, testResult.expectedOutput) | raw }}
-                                              {% endif %}
+                                                {% if(testResult.classify == "Accepted") %}
+                                                    <pre class="min-h-[150px]">{{ testResult.obtainedOutput | raw }}</pre>
+                                                {% else %}
+                                                    <div id="output{{ loop.index }}" class="outputObtained">
+                                                        <pre class="min-h-[150px]">{{ testResult.obtainedOutput | raw }}</pre>
+                                                    </div>
+                                                    <div id="diff{{ loop.index }}" class="diffExpectedObtained" style="display: none;">
+                                                        {{ answer.getDiffWithSolution(testResult.obtainedOutput, testResult.expectedOutput) | raw }}
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                {% if(testResult.classify != "Accepted") %}
-                                    {{ include('answer/explainDiffs.php.twig') }}
-                                {% endif %}
-                            {% else %}                             
+                            {% else %}
                                 <p class='pb-1 mt-1 mx-1 border p-4'>{%trans%}student-exercise.hidden-test{%endtrans%}<p>
                             {% endif %}
-                        {% endfor %}                  
+                        {% endfor %}
                     </div>
+                    {% if(testResult.classify != "Accepted") %}
+                        {{ include('answer/explainDiffs.php.twig') }}
+                    {% endif %}
                 {% endblock %}
     {% endembed %}
 </div>
+<script>
+    document.getElementById('toggleDiff').addEventListener('change', function() {
+        var outputs = document.getElementsByClassName('outputObtained');
+        var diffs = document.getElementsByClassName('diffExpectedObtained');
+        for (var i = 0; i < outputs.length; i++) {
+            outputs[i].style.display = this.checked ? 'none' : 'block';
+        }
+        for (var i = 0; i < diffs.length; i++) {
+            diffs[i].style.display = this.checked ? 'block' : 'none';
+        }
+    });
+</script>
