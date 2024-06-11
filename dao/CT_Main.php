@@ -162,7 +162,9 @@ class CT_Main implements \JsonSerializable
         }
         $fullExercises = array();
         foreach($this->exercises as $exercise) {
-            array_push($fullExercises, \CT\CT_Exercise::findExerciseForImportId($exercise->getExerciseId()));
+            if($exercise = \CT\CT_Exercise::findExerciseForImportId($exercise->getExerciseId())) {
+                array_push($fullExercises, $exercise);
+            }
         }
         $this->exercises = $fullExercises;
         return $this->exercises;
