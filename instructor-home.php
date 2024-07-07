@@ -65,9 +65,9 @@ if(array_key_exists('avg',$gradesMap)){
 }
 
 require_once($CFG->codetestBasePath."/util/preloadExercises.php");
-
 echo $twig->render('pages/instructor-home.php.twig', array(
     'main' => $main,
+    'link_id_history' => $_SESSION['lti_post']['resource_link_id'],
     'tittleName' => $tittleName,
     'exercises' => $exercises,
     'usagesCount' => $usageCount,

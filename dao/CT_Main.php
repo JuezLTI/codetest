@@ -51,6 +51,13 @@ class CT_Main implements \JsonSerializable
         return new self($context['ct_id']);
     }
 
+    public static function getMainFromLinkId($link_id) {
+        $query = \CT\CT_DAO::getQuery('main','getMainFromLinkId');
+        $arr = array(':link_id' => $link_id);
+        $context = $query['PDOX']->rowDie($query['sentence'], $arr);
+        return new self($context['ct_id']);
+    }
+
     public static function createMain($user_id, $context_id, $link_id, $current_time) {
         $query = \CT\CT_DAO::getQuery('main','insert');
         $arr = array(':userId' => $user_id, ':contextId' => $context_id, ':linkId' => $link_id, ':currentTime' => $current_time);
@@ -120,6 +127,17 @@ class CT_Main implements \JsonSerializable
         }
         $exercise->setCtId($this->getCtId());
         return $exercise;
+    }
+
+    public function importExercises($exercises) {
+        foreach($exercises as $origExercise) {
+            $class = $this->getTypeProperty('class');
+            $origExercise = new $class($origExercise);
+            if($origExercise->getExerciseId()) {
+                $origExercise->setExerciseId(null);
+                $exercise = $this->createExercise($origExercise);
+            }
+        }
     }
 
      function importExercise($context) {
