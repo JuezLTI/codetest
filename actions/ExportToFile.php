@@ -60,7 +60,7 @@ if ( $USER->instructor ) {
             $exportFile->getActiveSheet()->setCellValue('A'.$rowCounter, $lastName.', '.$firstName);
 
             $exportFile->getActiveSheet()->setCellValue('B'.$rowCounter, $UserName[0]);
-            $exportFile->getActiveSheet()->setCellValue('C'.$rowCounter, $Modified->format('m/d/y - h:i A '));
+            $exportFile->getActiveSheet()->setCellValue('C'.$rowCounter, $Modified->format('d/m/Y H:i:s'));
 
             $col = 3;
             foreach ($exercises as $exercise ) {
@@ -75,7 +75,7 @@ if ( $USER->instructor ) {
                 $modifiedAnswer = $answer->getModified();
                 $modifiedAnswerDate = new DateTime($modifiedAnswer);
                 $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col, $rowCounter, $A);
-                $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col + 1, $rowCounter, $modifiedAnswerDate->format('m/d/y - h:i A'));
+                $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col + 1, $rowCounter, $modifiedAnswerDate->format('d/m/Y H:i:s'));
                 $col+=2;
             }
         }
