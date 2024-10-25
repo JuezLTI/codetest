@@ -29,7 +29,7 @@ if ( $USER->instructor ) {
 
     $letters = range('C','Z');
     for($x = 1; $x<=$exerciseTotal; $x++){
-        $col1 = $x+2;
+        $col1 = $x * 2 + 1;
         $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col1, $rowCounter, "Exercise ".$x);
 
         $cell_name = $letters[$x]."1";
