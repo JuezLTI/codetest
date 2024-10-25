@@ -72,9 +72,11 @@ if ( $USER->instructor ) {
                     $A = $answer->getAnswerTxt();
                     $A = str_replace("&#39;", "'", $A);
                 }
-
+                $modifiedAnswer = $answer->getModified();
+                $modifiedAnswerDate = new DateTime($modifiedAnswer);
                 $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col, $rowCounter, $A);
-                $col++;
+                $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col + 1, $rowCounter, $modifiedAnswerDate->format('m/d/y - h:i A'));
+                $col+=2;
             }
         }
     }
