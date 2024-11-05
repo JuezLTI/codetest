@@ -71,11 +71,11 @@ if ( $USER->instructor ) {
                 if (is_object($answer) && (!is_null($answer->getAnswerId()))) {
                     $A = $answer->getAnswerTxt();
                     $A = str_replace("&#39;", "'", $A);
+                    $modifiedAnswer = $answer->getModified();
+                    $modifiedAnswerDate = new DateTime($modifiedAnswer);
+                    $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col, $rowCounter, $A);
+                    $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col + 1, $rowCounter, $modifiedAnswerDate->format('d/m/Y H:i:s'));
                 }
-                $modifiedAnswer = $answer->getModified();
-                $modifiedAnswerDate = new DateTime($modifiedAnswer);
-                $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col, $rowCounter, $A);
-                $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col + 1, $rowCounter, $modifiedAnswerDate->format('d/m/Y H:i:s'));
                 $col+=2;
             }
         }
