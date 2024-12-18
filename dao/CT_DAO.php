@@ -268,9 +268,9 @@ class CT_DAO {
                 $user = new CT_User($USER->id);
                 $displayedName = $user->getDisplayname();
             }
-            error_log("******************" . $displayedName . "******************************************", 3, $fileLog);
+            error_log("******************" . $displayedName . "******************************************\n", 3, $fileLog);
             error_log(addslashes($string), 3, $fileLog);
-            error_log("--------", 3, $fileLog);
+            error_log("\n--------\n", 3, $fileLog);
         }
 
     }
