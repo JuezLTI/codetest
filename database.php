@@ -207,5 +207,12 @@ $DATABASE_UPGRADE = function($oldversion) {
         $q = $PDOX->queryDie($sql);
     }
 
-    return '202012201622';
+    // Change answer_success from boolean to float
+    if ($PDOX->columnExists('answer_success', "{$CFG->dbprefix}ct_answer") && $PDOX->columnType('answer_success', "{$CFG->dbprefix}ct_answer") != 'float') {
+        $sql = "ALTER TABLE {$CFG->dbprefix}ct_answer MODIFY answer_success FLOAT NULL DEFAULT 0";
+        error_log("Upgrading: " . $sql);
+        $q = $PDOX->queryDie($sql);
+    }
+
+    return '202012201623';
 };
