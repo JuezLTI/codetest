@@ -1,9 +1,12 @@
+{% set success = answer.getAnswerSuccess() == 1 %}
+{% set answerText = answer.getAnswerTxt()|length > 0 %}
 <div class="
         answer-info-box
-        {{ answer.getAnswerTxt()|length > 0 ? ( answer.getAnswerSuccess() ? 'bg-green-600' : 'bg-red-600') : 'bg-yellow-500' }}
+        {{ answerText ? ( success ? 'bg-green-600' : 'bg-red-600') : 'bg-yellow-500' }}
     "
-    title="{{ (answer.getAnswerTxt()|length > 0 ? (answer.getAnswerSuccess() ? 'student-exercise.correct' : 'student-exercise.incorrect') : 'student-exercise.blank')|trans }}"
+
+    title="{{ (answerText ? (success ? 'student-exercise.correct' : 'student-exercise.incorrect') : 'student-exercise.blank')|trans }}"
 >
-    <span class="text-sm text-white text-[10px] fa {{ answer.getAnswerTxt()|length > 0 ? (answer.getAnswerSuccess() ? 'fa-check' : 'fa-times') : 'fa-file'}} ">
+    <span class="text-sm text-white text-[10px] fa {{ answerText ? (success ? 'fa-check' : 'fa-times') : 'fa-file'}} ">
     </span>
 </div>

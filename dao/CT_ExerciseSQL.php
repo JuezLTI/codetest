@@ -112,7 +112,7 @@ class CT_ExerciseSQL extends CT_Exercise  implements \JsonSerializable
         //CT_DAO::debug(CT_Answer::getDiffWithSolution(print_r($outputSolution, true), print_r($outputAnswer, true)));
 
         $grade = $outputSolution === $outputAnswer ? 1 : 0;
-        $answer->setAnswerSuccess($grade);
+        $answer->setAnswerSuccess();
     }
 
     public function getQueryResult($answer = null) {

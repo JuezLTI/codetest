@@ -686,7 +686,7 @@ const updateExerciseBadge = (data) => {
     })
     document.querySelector(studentFooterItemLabel).innerHTML = data.answerOutput
 
-    if (data.success) {
+    if (data.success === 1) {
         elements.forEach(el => {
             el.classList.add('bg-green-600')
         })

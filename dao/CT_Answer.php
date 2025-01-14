@@ -147,17 +147,37 @@ class CT_Answer
     /**
      * @return mixed
      */
-    public function getAnswerSuccess()
+    public function getAnswerSuccess() : float
     {
-        return $this->answer_success ?: 0;
+        return $this->answer_success ?? 0.0;
     }
 
     /**
      * @param mixed $answer_success
      */
-    public function setAnswerSuccess($answer_success)
+    public function setAnswerSuccess($grade = null)
     {
-        $this->answer_success = $answer_success;
+        if(!isset($grade)){
+            $tests_output = $this->getTestsOutput();
+            $points_obtained = 0;
+            $total_points = 0;
+
+            foreach ($tests_output as $test_output) {
+                $mark = 1.0;
+                $weight = $test_output['mark'];
+                if(isset($weight) && $weight > 0) {
+                    // weight could come in percentage or in perone
+                    $mark = ($weight <= 1) ? $weight : ($weight / 100);
+                }
+                $total_points += $mark;
+
+                if (str_starts_with(strtolower($test_output['classify']), strtolower('Accepted'))) {
+                    $points_obtained += $mark;
+                }
+            }
+            $grade = round(($total_points > 0 ? $points_obtained / $total_points : 0), 1);
+        }
+        $this->answer_success = $grade;
     }
 
     /**

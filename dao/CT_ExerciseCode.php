@@ -241,7 +241,7 @@ class CT_ExerciseCode extends CT_Exercise
 			/* $diff = CT_Answer::getDiffWithSolution($outputAnswer, $this->getExerciseOutputTest());
             $_SESSION['error'] = "Below, it shows the differences between output expected and output obtained\n<pre>" . htmlentities($diff) . "</pre>"; */
         }
-        $answer->setAnswerSuccess($grade);
+        $answer->setAnswerSuccess();
     }
 
     function getOutputFromCode($answerCode, $language, $input) {

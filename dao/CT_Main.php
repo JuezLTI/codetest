@@ -261,10 +261,10 @@ class CT_Main implements \JsonSerializable
     {
         global $translator;
         if(is_null($grade)) {
-            $corrects = 0;
+            $corrects = 0.0;
             $totalExercises = count($this->getExercises());
             foreach ($this->getAnswersByUser($userId) as $answer) {
-                if($answer->getAnswerSuccess()) $corrects++;
+                $corrects += $answer->getAnswerSuccess();
             }
             $grade = $corrects * $this->getPoints() / $totalExercises;
         }

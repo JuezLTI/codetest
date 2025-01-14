@@ -154,7 +154,7 @@ class CT_Exercise implements \JsonSerializable {
         if(isset($tests_output)){
             $answer->setTestsOutput($tests_output);
         }
-        $answer->setAnswerSuccess(str_starts_with(strtolower($answer_output['classify']), strtolower('Accepted')));
+        $answer->setAnswerSuccess();
         $answer->setCtId($this->getCtId());
 
         //save the answer
