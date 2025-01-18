@@ -21,7 +21,7 @@ class CT_Test implements \JsonSerializable
         \CT\CT_DAO::setObjectPropertiesFromArray($this, $context);
     }
 
-     public function jsonSerialize() {
+     public function jsonSerialize() : mixed {
         return [
             'test_id' => $this->getTest_id(),
             'description' => $this->getDescription(),
@@ -111,14 +111,14 @@ class CT_Test implements \JsonSerializable
     }
 
     static function checkerAdd($value) {
-        global $CFG;
+        global $CFG_CT;
 
         //checks the category of the value and adds it if it is not
-        if (in_array($value, $CFG->type)) {
+        if (in_array($value, $CFG_CT->type)) {
             if (!in_array($value, $_SESSION['tags']['type'])) {
                 array_push($_SESSION['tags']['type'], $value);
             }
-        } else if (in_array($value, $CFG->difficulty)) {
+        } else if (in_array($value, $CFG_CT->difficulty)) {
             if (!in_array($value, $_SESSION['tags']['difficulty'])) {
                 array_push($_SESSION['tags']['difficulty'], $value);
             }
@@ -156,7 +156,7 @@ class CT_Test implements \JsonSerializable
     }
 
     static function checker($object) {
-        global $CFG;
+        global $CFG_CT;
         $arrayTags = Array();
 
         //Add the categories with values to an array
@@ -172,20 +172,20 @@ class CT_Test implements \JsonSerializable
             $array["postData"] = [[$arrayTags[0]], $_SESSION['tags'][$arrayTags[0]], [$arrayTags[1]],
                 $_SESSION['tags'][$arrayTags[1]], [$arrayTags[2]], $_SESSION['tags'][$arrayTags[2]],
                 [$arrayTags[3]], $_SESSION['tags'][$arrayTags[3]]];
-            $array["url"] = $CFG->repositoryUrl . "/api/".$object."/getTestExerciseBy4Values";
+            $array["url"] = $CFG_CT->repositoryUrl . "/api/".$object."/getTestExerciseBy4Values";
         } else if (count($arrayTags) == 3) {
 
             $array["postData"] = [[$arrayTags[0]], $_SESSION['tags'][$arrayTags[0]], [$arrayTags[1]],
                 $_SESSION['tags'][$arrayTags[1]], [$arrayTags[2]], $_SESSION['tags'][$arrayTags[2]]];
-            $array["url"] = $CFG->repositoryUrl . "/api/".$object."/getTestExerciseBy3Values";
+            $array["url"] = $CFG_CT->repositoryUrl . "/api/".$object."/getTestExerciseBy3Values";
         } else if (count($arrayTags) == 2) {
 
             $array["postData"] = [[$arrayTags[0]], $_SESSION['tags'][$arrayTags[0]], [$arrayTags[1]], $_SESSION['tags'][$arrayTags[1]]];
-            $array["url"] = $CFG->repositoryUrl . "/api/".$object."/getTestExerciseByValues";
+            $array["url"] = $CFG_CT->repositoryUrl . "/api/".$object."/getTestExerciseByValues";
         } else if (count($arrayTags) == 1) {
 
             $array["postData"] = [$_SESSION['tags'][$arrayTags[0]], [$arrayTags[0]]];
-            $array["url"] = $CFG->repositoryUrl . "/api/".$object."/getTestByValue";
+            $array["url"] = $CFG_CT->repositoryUrl . "/api/".$object."/getTestByValue";
         }
 
 
@@ -326,7 +326,7 @@ class CT_Test implements \JsonSerializable
 
     //Find a exercise by Test_id and exercise_id
     static function findTestForImportExerciseId($exercise_id, $test_id) {
-        global $CFG, $REST_CLIENT_REPO;
+        global $CFG_CT, $REST_CLIENT_REPO;
         $url = "api/exercises/getTestId/$test_id";
         $responseObj = $REST_CLIENT_REPO->getClient()->request('GET', $url);
         $response = $responseObj->toArray();
@@ -335,7 +335,7 @@ class CT_Test implements \JsonSerializable
         foreach ($exercises as $exercise) {
             //after import the test search for the exercise with the id passed
             if ($exercise->id == $exercise_id) {
-                if( in_array($exercise->type, $CFG->programmingLanguajes)) {
+                if( in_array($exercise->type, $CFG_CT->programmingLanguajes)) {
                     $CTExercise = \CT\CT_Test::mapObjectToCodeExercise($exercise, $test_id);
                 } else {
                     $CTExercise = \CT\CT_Test::mapObjectToSQLExercise($exercise, $test_id);

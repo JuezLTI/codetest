@@ -40,7 +40,7 @@ echo $twig->render('pages/exercise-creation.php.twig', array(
     'owner' => $owner,
     'newExercise' => $newExercise,
     'OUTPUT' => $OUTPUT,
-    'CFG' => $CFG,
+    'CFG' => $CFG_CT,
     'menu' => $menu,
     'validatorService' => $validatorService,
     'help' => $help()

@@ -45,7 +45,7 @@ class CT_ExerciseSQL extends CT_Exercise  implements \JsonSerializable
     }
 
     //necessary to use json_encode with exerciseSQL objects
-      public function jsonSerialize() {
+      public function jsonSerialize() : mixed {
         return [
             'exercise_id' => $this->getExerciseId(),
             'ct_id' => $this->getCtId(),

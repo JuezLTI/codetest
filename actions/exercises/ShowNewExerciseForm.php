@@ -11,7 +11,7 @@ if ($USER->instructor) {
         'main' => $main,
         'newExercise' => $newExercise,
         'newExerciseNumber' => $exercises ? count($exercises) + 1 : 1,
-        'CFG' => $CFG,
+        'CFG' => $CFG_CT,
     ));
 } else {
     header('Location: ' . addSession('../student-home.php'));

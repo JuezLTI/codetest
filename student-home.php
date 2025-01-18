@@ -75,7 +75,7 @@ echo $twig->render('pages/student-view.php.twig', array(
     'exerciseNum' => $currentExerciseNumber,
     'main' => $main,
     'validatorService' => $validatorService,
-    'CFG' => $CFG,
+    'CFG' => $CFG_CT,
     'mdConverter' => $Parsedown
 )
 );

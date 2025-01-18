@@ -252,7 +252,7 @@ class CT_Answer
     }
 
     public function save() {
-        global $CFG;
+        global $CFG_CT;
         $currentTime = new \DateTime('now', new \DateTimeZone($CFG->timezone));
         $currentTime = $currentTime->format("Y-m-d H:i:s");
         if($this->isNew()) { 
@@ -305,13 +305,13 @@ class CT_Answer
 
     public function getDiffWithSolution($outputAnswer, $solution)
         {
-        global $CFG;
+        global $CFG_CT;
     /*     // include the Diff class
-        require_once $CFG->codetestRootDir . '/util/class.Diff.php';
+        require_once $CFG_CT->codetestRootDir . '/util/class.Diff.php';
         // compare two strings line by line
         return \Diff::toString(\Diff::compare($solution, $outputAnswer)); */
         // include the Diff class
-        require_once $CFG->codetestRootDir . '/util/HTML_Diff.class.php';
+        require_once $CFG_CT->codetestRootDir . '/util/HTML_Diff.class.php';
         // compare two strings line by line
         return \HTML_Diff::htmlDiff($solution, $outputAnswer);
     }

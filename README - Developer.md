@@ -159,7 +159,7 @@ s
           "email": "codetest@email.com"
       }'
 
-- ⚠ The user created in this step must be configured inside the codetest file `config.php`, inside the object `$CFG->apiConfigs`
+- ⚠ The user created in this step must be configured inside the codetest file `config.php`, inside the object `$CFG_CT->apiConfigs`
 
 > SETUP XML-VALIDATOR
 

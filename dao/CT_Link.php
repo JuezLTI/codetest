@@ -45,7 +45,7 @@ class CT_Link implements \JsonSerializable {
     }
 
     //necessary to use json_encode with exercise objects
-    public function jsonSerialize() {
+    public function jsonSerialize() : mixed {
         return [
             'link_id' => $this->getLinkId(),
             'link_sha256' => $this-getLinkSha256(),

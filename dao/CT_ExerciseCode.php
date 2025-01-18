@@ -30,7 +30,7 @@ class CT_ExerciseCode extends CT_Exercise
 
 
    // necessary to use json_encode with exerciseCode objects
-    public function jsonSerialize() {
+    public function jsonSerialize() : mixed {
         return [
             'exercise_id' => $this->getExerciseId(),
             'ct_id' => $this->getCtId(),
@@ -257,7 +257,7 @@ class CT_ExerciseCode extends CT_Exercise
     }
 
     function launchCode($file, $language, $input) {
-        global $CFG;
+        global $CFG_CT;
         $main = $this->getMain();
         $languages = $main->getProperty('codeLanguages');
         $timeout = $main->getProperty('timeout') + time();

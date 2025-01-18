@@ -16,7 +16,7 @@ if ($USER->instructor) {
     echo $twig->render('pages/exercise-import.php.twig', array(
         'page' => $page,
         'OUTPUT' => $OUTPUT,
-        'CFG' => $CFG,
+        'CFG' => $CFG_CT,
         'menu' => $menu,
         'help' => $help(),
         'testForImport' => $testForImport,

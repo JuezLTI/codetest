@@ -7,34 +7,34 @@
 require_once dirname(__DIR__) . "/config.php";
 require 'vendor/autoload.php';
 
-$CFG->codetestRootDir = dirname(__FILE__);
-$CFG->codetestBasePath = __DIR__;
+$CFG_CT->codetestRootDir = dirname(__FILE__);
+$CFG_CT->codetestBasePath = __DIR__;
 
 
-$CFG->twig = array(
+$CFG_CT->twig = array(
     'viewsPath' => __DIR__ . "/views",
     'debug' => true,
     'cachePath' => __DIR__ . "/tmp",
 );
 
-$CFG->CT_log = array(
+$CFG_CT->CT_log = array(
     'debug' => true,
     'filePath' => __DIR__ . "/tmp/ctLog.log",
 );
 
-$CFG->repositoryUrl = "localhost:8080";
+$CFG_CT->repositoryUrl = "localhost:8080";
 
-$CFG->type = [
+$CFG_CT->type = [
     "PHP" => "PHP",
     "MYSQL" => "MYSQL",
     "Python" => "Python",
     "Java" => "Java"
 ];
 
-$CFG->apiConfigs = [
+$CFG_CT->apiConfigs = [
     "spring-repo" => [
         // MUST HAVE A TRAILING SLASH
-        "baseUrl" => "http://{$CFG->repositoryUrl}/",
+        "baseUrl" => "http://{$CFG_CT->repositoryUrl}/",
         "user" => "codetest",
         "pass" => "c0d3te5t",
     ],
@@ -50,14 +50,14 @@ $CFG->apiConfigs = [
     ],
 ];
 
-$CFG->programmingLanguajes = array(
+$CFG_CT->programmingLanguajes = array(
     'PHP',
     'Java',
     'Javascript',
     'Python'
 );
 
-$CFG->CT_Types = array(
+$CFG_CT->CT_Types = array(
     'formsPath' => 'exercise/forms/',
     'studentsPath' => 'exercise/students/',
     'types' => array(
@@ -125,7 +125,7 @@ $CFG->CT_Types = array(
     ),
 );
 
-$CFG->difficulty = array(
+$CFG_CT->difficulty = array(
     "Easy" => "Easy",
     "medium" => "Medium",
     "Hard" => "Hard"

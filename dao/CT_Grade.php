@@ -110,7 +110,7 @@ class CT_Grade
     }
 
     public function save() {
-        global $CFG;
+        global $CFG_CT;
         $currentTime = new \DateTime('now', new \DateTimeZone($CFG->timezone));
         $currentTime = $currentTime->format("Y-m-d H:i:s");
         if($this->isNew()) {
@@ -128,5 +128,5 @@ class CT_Grade
         $query['PDOX']->queryDie($query['sentence'], $arr);
         if($this->isNew()) $this->setGradeId($query['PDOX']->lastInsertId());
     }
-
 }
+

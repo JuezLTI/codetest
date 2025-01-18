@@ -68,7 +68,7 @@ class CT_Exercise implements \JsonSerializable {
     }
 
     //necessary to use json_encode with exercise objects
-    public function jsonSerialize() {
+    public function jsonSerialize() : mixed {
         return [
             'id' => $this->getExerciseId(),
             'ct_id' => $this->getCtId(),
@@ -373,7 +373,7 @@ class CT_Exercise implements \JsonSerializable {
 
     public function getExerciseCode()
     {
-        global $CFG;
+        global $CFG_CT;
         $class = $this->getMain()->getProperty('class');
 
         return new $class($this->getExerciseId());
@@ -404,7 +404,7 @@ class CT_Exercise implements \JsonSerializable {
     }
 
     public function save() {
-        global $CFG;
+        global $CFG_CT;
         $currentTime = new \DateTime('now', new \DateTimeZone($CFG->timezone));
         $currentTime = $currentTime->format("Y-m-d H:i:s");
         $isNew = $this->isNew();

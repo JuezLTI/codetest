@@ -109,9 +109,9 @@ class CT_Main implements \JsonSerializable
 
     //Create exercise object
     function createExercise($context, $language, $difficulty, $libraries, $visibleTest) {
-        global $CFG;
+        global $CFG_CT;
         if(is_array($context)) {
-            $class = $CFG->ExerciseProperty['class'];
+            $class = $CFG_CT->ExerciseProperty['class'];
             $exercise = new $class();
             \CT\CT_DAO::setObjectPropertiesFromArray($exercise, $context);
                 $array = self::getLanguages();
@@ -141,9 +141,9 @@ class CT_Main implements \JsonSerializable
     }
 
      function importExercise($context) {
-        global $CFG;
+        global $CFG_CT;
         if(is_array($context)) {
-            $class = $CFG->ExerciseProperty['class'];
+            $class = $CFG_CT->ExerciseProperty['class'];
             $exercise = new $class();
             \CT\CT_DAO::setObjectPropertiesFromArray($exercise, $context);
         }
@@ -152,19 +152,19 @@ class CT_Main implements \JsonSerializable
     }
 
     public static function getTypes(){
-        global $CFG;
-        return $CFG->programmingLanguajes;
+        global $CFG_CT;
+        return $CFG_CT->programmingLanguajes;
 
     }
 
     function getLanguages() {
-        global $CFG;
-        return $CFG->ExerciseProperty['codeLanguages'];
+        global $CFG_CT;
+        return $CFG_CT->ExerciseProperty['codeLanguages'];
     }
 
     function getProperty($property) {
-        global $CFG;
-        return $CFG->ExerciseProperty[$property];
+        global $CFG_CT;
+        return $CFG_CT->ExerciseProperty[$property];
     }
 
     /**
@@ -497,7 +497,7 @@ class CT_Main implements \JsonSerializable
     }
 
     //necessary to use json_encode with exercise objects
-    public function jsonSerialize() {
+    public function jsonSerialize() : mixed {
         return [
             'user_id' => $this->getUserId(),
             'context_id' => $this->getContextId(),

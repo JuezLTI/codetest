@@ -11,7 +11,7 @@ if (!$main->getTitle()) {
 }
 
 $exercises = $main->getExercises();
-$tittleName = $CFG->ExerciseProperty['name'];
+$tittleName = $CFG_CT->ExerciseProperty['name'];
 
 // Clear any preview responses if there are exercises
 if ($exercises) \CT\CT_Answer::deleteInstructorAnswers($exercises, $CONTEXT->id);
@@ -64,7 +64,7 @@ if(array_key_exists('avg',$gradesMap)){
     $gradesMap['avg'] = $gradesMap['avg'] / $gradesCount;
 }
 
-require_once($CFG->codetestBasePath."/util/preloadExercises.php");
+require_once($CFG_CT->codetestBasePath."/util/preloadExercises.php");
 echo $twig->render('pages/instructor-home.php.twig', array(
     'main' => $main,
     'link_id_history' => $_SESSION['lti_post']['resource_link_id'],
@@ -74,7 +74,7 @@ echo $twig->render('pages/instructor-home.php.twig', array(
     'gradesCount' => $gradesCount,
     'gradesMap' => $gradesMap,
     'OUTPUT' => $OUTPUT,
-    'CFG' => $CFG,
+    'CFG' => $CFG_CT,
     'menu' => $menu,
     'help' => $help(),
 ));

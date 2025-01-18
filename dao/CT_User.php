@@ -25,7 +25,7 @@ class CT_User implements \JsonSerializable
         \CT\CT_DAO::setObjectPropertiesFromArray($this, $context);
     }
 
-    public function jsonSerialize(){
+    public function jsonSerialize() : mixed {
          return [
             'id' =>  $this->getUserId(),
             'deleted' => $this->getDeleted(),

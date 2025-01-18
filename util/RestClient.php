@@ -22,7 +22,7 @@ class RestClient
     private $isAuthorKit;
     private $isOnline = false;
 
-    public function __construct($baseUrl = null, $token)
+    public function __construct($baseUrl, $token = null)
     {
         $client = HttpClient::create();
         $clientOptions = [
@@ -41,16 +41,16 @@ class RestClient
 
     public function getClient()
     {
-        global $CFG;
-        $jsonData = JSONManager::getJsonData(getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG->codetestBasePath. '/rest-data.json');
+        global $CFG_CT;
+        $jsonData = JSONManager::getJsonData(getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG_CT->codetestBasePath. '/rest-data.json');
         if($this->isAuthorKit){
             $expireTime = $jsonData['authorkit']['token']['expireDate'];
             $expireRefreshTime = $jsonData['authorkit']['token']['expireRefreshDate'];
             if(time() > $expireTime){
                 if(time() > $expireRefreshTime){
                     $this->loginAuthor(
-                        $CFG->apiConfigs['authorkit']['user'],
-                        $CFG->apiConfigs['authorkit']['pass']
+                        $CFG_CT->apiConfigs['authorkit']['user'],
+                        $CFG_CT->apiConfigs['authorkit']['pass']
                     );
                 }else{
                     $this->refreshAuthorToken();
@@ -60,8 +60,8 @@ class RestClient
             $expireTime = $jsonData['spring-repo']['token']['expireDate'];
             if(time() > $expireTime) {
                 $this->loginRepo(
-                    $CFG->apiConfigs['spring-repo']['user'],
-                    $CFG->apiConfigs['spring-repo']['pass']
+                    $CFG_CT->apiConfigs['spring-repo']['user'],
+                    $CFG_CT->apiConfigs['spring-repo']['pass']
                 );
             }
         }
@@ -112,11 +112,11 @@ class RestClient
     }
 
     public function refreshAuthorToken(){
-        global $CFG;
+        global $CFG_CT;
 
         $this->log("Refreshing authorkit token...");
 
-        $jsonData = JSONManager::getJsonData(getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG->codetestBasePath. '/rest-data.json');
+        $jsonData = JSONManager::getJsonData(getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG_CT->codetestBasePath. '/rest-data.json');
 
         $response = $this->client->request('POST', AUTHOR_REFRESH_URL, [
             'json' => [
@@ -128,7 +128,7 @@ class RestClient
     }
 
     public function setAuthorData($responseData){
-        global $CFG;
+        global $CFG_CT;
         $currentTime = time();
 
         $responseData['expireDate'] = $currentTime + $responseData['expiresIn'];
@@ -153,7 +153,7 @@ class RestClient
         $responseData['recievedAt'] = $dateNowStr;
         $this->token = $responseData['accessToken'];
 
-        JSONManager::setKeyValue('[authorkit][token]', $responseData, getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG->codetestBasePath. '/rest-data.json');
+        JSONManager::setKeyValue('[authorkit][token]', $responseData, getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG_CT->codetestBasePath. '/rest-data.json');
 
         $client = HttpClient::create();
         $client = $client->withOptions([
@@ -166,7 +166,7 @@ class RestClient
     }
 
     public function setRepoData($responseData){
-        global $CFG;
+        global $CFG_CT;
         $currentTime = time();
         $returnData = [];
         $tokenJwt = $this->parseJwt($responseData);
@@ -189,7 +189,7 @@ class RestClient
         $returnData['expiresIn'] = $returnData['expireDate'] - $currentTime;
         $this->token = $tokenStr;
 
-        JSONManager::setKeyValue('[spring-repo][token]', $returnData, getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG->codetestBasePath. '/rest-data.json');
+        JSONManager::setKeyValue('[spring-repo][token]', $returnData, getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG_CT->codetestBasePath. '/rest-data.json');
 
         $client = HttpClient::create();
         $client = $client->withOptions([

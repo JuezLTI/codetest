@@ -32,12 +32,12 @@ public static function constructValues($idExercise, $user, $understandabilitySco
 
 
 public function save() {
-        global $CFG, $REST_CLIENT_REPO;
+        global $CFG_CT, $REST_CLIENT_REPO;
 
         //url to save the usage
-        $url = $CFG->repositoryUrl . "/api/usage/tickets";
+        $url = $CFG_CT->repositoryUrl . "/api/usage/tickets";
         //url to update the Test score
-        $urlUpdateTest = $CFG->repositoryUrl . "/api/usage/updateTest";
+        $urlUpdateTest = $CFG_CT->repositoryUrl . "/api/usage/updateTest";
 
         //url to update the exercises score
         $urlUpdateExercise = "api/usage/updateExercise";
@@ -148,7 +148,7 @@ public function save() {
         return $usages;
     }
 
-    public function jsonSerialize(){
+    public function jsonSerialize() : mixed {
         return [
             'idExercise' =>  $this->getIdExercise(),
             'ctId' => $this->getCtId(),

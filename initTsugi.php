@@ -1,8 +1,8 @@
 <?php
 require_once('config.php');
 require 'vendor/autoload.php';
-require_once $CFG->codetestBasePath. '/util/RestClient.php';
-require_once $CFG->codetestBasePath. '/util/JSONManager.php';
+require_once $CFG_CT->codetestBasePath. '/util/RestClient.php';
+require_once $CFG_CT->codetestBasePath. '/util/JSONManager.php';
 include_once('util/ValidatorService.php');
 
 use Tsugi\Core\LTIX;
@@ -27,22 +27,22 @@ $help = function() {
 };
 
 // Add views path to loader
-$loader = new \Twig\Loader\FilesystemLoader($CFG->twig['viewsPath']);
+$loader = new \Twig\Loader\FilesystemLoader($CFG_CT->twig['viewsPath']);
 
 $twig = new \Twig\Environment($loader, [
-    'debug' => false, // $CFG->twig['debug'],
-    'cache' => $CFG->twig['cachePath'],
+    'debug' => false, // $CFG_CT->twig['debug'],
+    'cache' => $CFG_CT->twig['cachePath'],
 ]);
 
-$jsonData = JSONManager::getJsonData(getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG->codetestBasePath. '/rest-data.json');
+$jsonData = JSONManager::getJsonData(getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG_CT->codetestBasePath. '/rest-data.json');
 
 if(!empty($jsonData['spring-repo']['token'])){
-    $restClientRepo = new RestClient($CFG->apiConfigs['spring-repo']['baseUrl'], $jsonData['spring-repo']['token']['accessToken']);
+    $restClientRepo = new RestClient($CFG_CT->apiConfigs['spring-repo']['baseUrl'], $jsonData['spring-repo']['token']['accessToken']);
 }else{
-    $restClientRepo = new RestClient($CFG->apiConfigs['spring-repo']['baseUrl'], null);
+    $restClientRepo = new RestClient($CFG_CT->apiConfigs['spring-repo']['baseUrl'], null);
     $restClientRepo->loginRepo(
-        $CFG->apiConfigs['spring-repo']['user'],
-        $CFG->apiConfigs['spring-repo']['pass']
+        $CFG_CT->apiConfigs['spring-repo']['user'],
+        $CFG_CT->apiConfigs['spring-repo']['pass']
     );
 }
 $restClientRepo->checkRepoIsOnline();

@@ -7,22 +7,22 @@ class CT_DAO {
 
     public function __construct() {
         global $PDOX;
-        global $CFG;
+        global $CFG_CT;
         $this->PDOX = $PDOX;
-        $this->p = $CFG->dbprefix;
+        $this->p = $CFG_CT->dbprefix;
     }
 
     public static function getConnection() {
         global $PDOX;
-        global $CFG;
-        return array('PDOX' => $PDOX, 'p' => $CFG->dbprefix);
+        global $CFG_CT;
+        return array('PDOX' => $PDOX, 'p' => $CFG_CT->dbprefix);
     }
 
     public static function setObjectPropertiesFromArray(&$object, $arrayProperties) {
         if(is_array($arrayProperties)){
             foreach($arrayProperties as $k => $v) {
                 if($k== 'keywords'){
-                    if(!is_array($v)){
+                    if(isset($v) && !is_array($v)){
                         $v = preg_split('/\r\n|\r|\n/', $v);
                     }else{
                         $v = $v;
@@ -260,10 +260,10 @@ class CT_DAO {
 
     public static function debug($string)
     {
-        global $USER, $CFG;
+        global $USER, $CFG_CT;
         $displayedName = "";
-        if($CFG->CT_log['debug']) {
-            $fileLog = $CFG->CT_log['filePath'];
+        if($CFG_CT->CT_log['debug']) {
+            $fileLog = $CFG_CT->CT_log['filePath'];
             if(is_object($USER) && isset($USER->id)){
                 $user = new CT_User($USER->id);
                 $displayedName = $user->getDisplayname();

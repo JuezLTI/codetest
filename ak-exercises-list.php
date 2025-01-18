@@ -23,7 +23,7 @@ echo $twig->render('pages/ak-exercises-list.php.twig', array(
     "project" => $project,
     "exercises" => $exercises,
     'OUTPUT' => $OUTPUT,
-    'CFG' => $CFG,
+    'CFG' => $CFG_CT,
     'menu' => $menu,
     'help' => $help(),
 ));

@@ -17,7 +17,7 @@ foreach($exercises as $el){
 echo $twig->render('pages/exercises-list.php.twig', array(
     'exercises' => $typedExercises,
     'OUTPUT' => $OUTPUT,
-    'CFG' => $CFG,
+    'CFG' => $CFG_CT,
     'menu' => $menu,
     'help' => $help(),
 ));

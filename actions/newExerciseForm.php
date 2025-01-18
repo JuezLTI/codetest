@@ -10,7 +10,7 @@ if ($USER->instructor) {
     echo $twig->render('exercise/newExerciseForm.php.twig', array(
         'main' => $main,
         'type' => $language,
-        'CFG' => $CFG,
+        'CFG' => $CFG_CT,
     ));
 } else {
     header('Location: ' . addSession('../student-home.php'));

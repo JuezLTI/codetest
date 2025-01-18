@@ -5,10 +5,10 @@ class ValidatorService{
     private $codeLanguages;
 
     public function __construct(){
-        global $CFG;
+        global $CFG_CT;
         
         $this->codeLanguages = null;
-        $this->validators = $CFG->validators;
+        $this->validators = $CFG_CT->validators;
        
     }
 
@@ -40,3 +40,4 @@ class ValidatorService{
 
     }
 }
+
