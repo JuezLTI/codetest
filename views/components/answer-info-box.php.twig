@@ -1,4 +1,4 @@
-{% set success = answer.getAnswerSuccess() == 1 %}
+{% set success = (answer.getAnswerSuccess() == 1) %}
 {% set answerText = answer.getAnswerTxt()|length > 0 %}
 <div class="
         answer-info-box

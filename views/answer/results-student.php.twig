@@ -64,7 +64,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-4 d-flex self-center justify-center">
-                                                <span aria-hidden="true" class="{{answer.getAnswerSuccess() ? 'fa fa-check-circle-o' : 'fa fa-times-circle-o'}} d-flex self-center justify-center"></span> 
+                                                <span aria-hidden="true" class="fa {{ (answer.getAnswerSuccess() == 1) ? 'fa-check-circle-o' : 'fa-times-circle-o'}} d-flex self-center justify-center"></span> 
                                                 {% if answer.getAnswerSuccess() != 1 %}	
                                                     {{ include('answer/answer-diffs.php', { 'answer' : answer}) }}
                                                 {% endif %}

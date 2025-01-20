@@ -9,7 +9,7 @@
                                         <p class="response-text"><pre>{{ response.answer.getAnswerTxt() }}</pre></p>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span aria-hidden="true" class="fas fa-thumbs-{{response.answer.getAnswerSuccess() ? 'up' : 'down'}} text-success"></span>
+                                        <span aria-hidden="true" class="fas fa-thumbs-{{ (response.answer.getAnswerSuccess() == 1) ? 'up' : 'down'}} text-success"></span>
 									{% if response.answer.getAnswerSuccess() != 1 %}
 										{{ include('answer/answer-diffs.php', { 'answer' : response.answer}) }}
 									{% endif %}
