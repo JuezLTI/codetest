@@ -5,7 +5,7 @@ require_once('../vendor/erusev/parsedown/Parsedown.php');
 global $translator;
 use Symfony\Component\HttpClient\HttpClient;
 
-$currentTime = new DateTime('now', new DateTimeZone($CFG->timezone));
+$currentTime = new DateTime('now', new DateTimeZone($CFG_CT->timezone));
 $exerciseId = $_POST["exerciseId"];
 $answerText = $_POST["answerText"];
 $exerciseNum = $_POST["exerciseNum"];

@@ -253,7 +253,7 @@ class CT_Answer
 
     public function save() {
         global $CFG_CT;
-        $currentTime = new \DateTime('now', new \DateTimeZone($CFG->timezone));
+        $currentTime = new \DateTime('now', new \DateTimeZone($CFG_CT->timezone));
         $currentTime = $currentTime->format("Y-m-d H:i:s");
         if($this->isNew()) { 
             $query = \CT\CT_DAO::getQuery('answer','insert');

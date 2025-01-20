@@ -7,7 +7,7 @@ if ($USER->instructor) {
     $result = array();
 
     if (isset($_POST["points_possible"]) && is_numeric($_POST["points_possible"])) {
-        $currentTime = new DateTime('now', new DateTimeZone($CFG->timezone));
+        $currentTime = new DateTime('now', new DateTimeZone($CFG_CT->timezone));
         $main = new \CT\CT_Main($_SESSION["ct_id"]);
         $main->setModified($currentTime->format("Y-m-d H:i:s"));
         $main->setPoints($_POST["points_possible"]);

@@ -2,7 +2,7 @@
 require_once('initTsugi.php');
 require_once('util/Functions.php');
 
-$currentTime = new DateTime('now', new DateTimeZone($CFG->timezone));
+$currentTime = new DateTime('now', new DateTimeZone($CFG_CT->timezone));
 $currentTime = $currentTime->format("Y-m-d H:i:s");
 
 $userforMain = $USER->instructor ? $USER->id : null;
