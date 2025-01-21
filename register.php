@@ -14,15 +14,14 @@ $REGISTER_LTI2 = array(
     "analytics" => array(
         "internal"
     ),
-    "source_url" => "https://github.com/albsierra/codetest",
+    "source_url" => "https://github.com/JuezLTI/codetest",
     "screen_shots" => array(
         "images/CT-Splash.png",
+        "images/CT-InstructorView.png",
+        "images/CT-InstructorCreateExercise.png",
         "images/CT-InstructorExercises.png",
-        "images/CT-Instructor-ToolMenu.png",
-        "images/CT-Help.png",
-        "images/CT-Instructor-StudentResults.png",
-        "images/CT-Instructor-ExerciseResults.png",
         "images/CT-StudentView.png",
-        "images/CT-StudentView-Answered.png",
+        "images/CT-InstructorExercisesResult.png",
+        "images/CT-GradeView.png"
     )
 );
