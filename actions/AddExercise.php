@@ -56,7 +56,7 @@ if ($USER->instructor) {
         $exercisePost['owner'] = $_SESSION["lti"]["link_title"];
         $exercisePost['sessionLanguage'] = isset($_SESSION["lti"]["user_locale"]) ? $_SESSION["lti"]["user_locale"] : "en";
         $main = new \CT\CT_Main($_SESSION["ct_id"]);
-
+        $exercisePost['keywords'] = array_map('trim', explode(',', $exercisePost['keywords']));
         // Change to Boolean Values
         $exercisePost['visibleTest'] = array_map(function($value) {
             return filter_var($value, FILTER_VALIDATE_BOOLEAN);
