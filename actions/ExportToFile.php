@@ -75,8 +75,8 @@ if ( $USER->instructor ) {
                     $A = str_replace("&#39;", "'", $A);
                     $modifiedAnswer = $answer->getModified();
                     $modifiedAnswerDate = new DateTime($modifiedAnswer);
-                    $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col, $rowCounter, $A);
-                    $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col + 1, $rowCounter, $modifiedAnswerDate->format('d/m/Y H:i:s'));
+                    $exportFile->getActiveSheet()->setCellValue([$col, $rowCounter], $A);
+                    $exportFile->getActiveSheet()->setCellValue([$col + 1, $rowCounter], $modifiedAnswerDate->format('d/m/Y H:i:s'));
                 }
                 $col+=2;
             }
