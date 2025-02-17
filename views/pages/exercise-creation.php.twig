@@ -38,7 +38,7 @@
                             label: "new-exercise-form.keywordsseparatedlines"|trans,
                             name: 'exercise[keywords]',
                             id: 'exerciseKeywords',
-                            value: exercise.getKeywords()[0]
+                            value: exercise.getKeywords()|join(', ')
 
                         } only
                     %}
