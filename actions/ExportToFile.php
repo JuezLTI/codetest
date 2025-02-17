@@ -1,6 +1,8 @@
 <?php
 require_once "../initTsugi.php";
-require_once "../util/PHPExcel.php";
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 if ( $USER->instructor ) {
 
@@ -13,7 +15,7 @@ if ( $USER->instructor ) {
 
     $exerciseTotal = count($exercises);
 
-    $exportFile = new PHPExcel();
+    $exportFile = new Spreadsheet();
 
     $exportFile->setActiveSheetIndex(0)->setCellValue('A1', 'Student');
     $exportFile->setActiveSheetIndex(0)->setCellValue('B1', 'Username');
@@ -30,7 +32,7 @@ if ( $USER->instructor ) {
     $letters = range('C','Z');
     for($x = 1; $x<=$exerciseTotal; $x++){
         $col1 = $x * 2 + 1;
-        $exportFile->getActiveSheet()->setCellValueByColumnAndRow($col1, $rowCounter, "Exercise ".$x);
+        $exportFile->getActiveSheet()->setCellValue([$col1, $rowCounter], "Exercise ".$x);
 
         $cell_name = $letters[$x]."1";
         $exportFile->getActiveSheet()->getStyle($cell_name)->getFont()->setBold(true);
@@ -84,7 +86,7 @@ if ( $USER->instructor ) {
 
     $exportFile->getActiveSheet()->setTitle('Code_Test');
 
-    foreach($exportFile->getActiveSheet()->getColumnDimension() as $col) {
+    foreach($exportFile->getActiveSheet()->getColumnDimension('A') as $col) {
         $col->setAutoSize(true);
     }
     $exportFile->getActiveSheet()->calculateColumnWidths();
@@ -100,7 +102,7 @@ if ( $USER->instructor ) {
     header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
     header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
     header ('Pragma: public'); // HTTP/1.0
-    $objWriter = PHPExcel_IOFactory::createWriter($exportFile, 'Excel5');
+    $objWriter = new Xlsx($exportFile);
     $objWriter->save('php://output');
 } else {
     header( 'Location: '.addSession('../student-home.php')) ;
