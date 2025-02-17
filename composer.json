@@ -10,6 +10,7 @@
         "symfony/http-client": "^5.3",
         "symfony/property-access": "^5.3",
         "erusev/parsedown": "^1.7",
-        "jfcherng/php-diff": "^6.10"
+        "jfcherng/php-diff": "^6.10",
+        "phpoffice/phpspreadsheet": "^4.0"
     }
 }
