@@ -55,9 +55,13 @@ function downloadAkExercise($exerciseId) {
 
     global $REST_CLIENT_AUTHOR, $REST_CLIENT_REPO, $TSUGI_LOCALE;
 
-    $exerciseFileResponse = $REST_CLIENT_AUTHOR->getClient()->request('GET', "exercises/$exerciseId/export?format=zip", [
-        'buffer' => false,
-    ]);
+    try {
+        $exerciseFileResponse = $REST_CLIENT_AUTHOR->getClient()->request('GET', "exercises/$exerciseId/export?format=zip", [
+            'buffer' => false,
+        ]);
+    } catch (Exception $e) {
+        throw $e;
+    }
 
     if (200 !== $exerciseFileResponse->getStatusCode()) {
         throw new \Exception('Request to AK failed');

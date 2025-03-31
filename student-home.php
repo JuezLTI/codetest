@@ -23,7 +23,11 @@ if ($totalExercises > 0) {
     $isAK_exercise = !$exercises[$currentExerciseNumber - 1]->getCodeExercise();
 
     if ( $USER->instructor && $isAK_exercise) {
-        $renewed = downloadAkExercise($firstExerciseAkId);
+        try {
+            $renewed = downloadAkExercise($firstExerciseAkId);
+        } catch (Exception $e) {
+            error_log(print_r($e, true));
+        }
     }
     $exerciseTestsResponse = $REST_CLIENT_REPO->getClient()->request('GET', "api/exercises/$firstExerciseAkId/tests");
     $exerciseStatementsResponse = $REST_CLIENT_REPO->getClient()->request('GET', "api/exercises/$firstExerciseAkId/statements/$student_language");
