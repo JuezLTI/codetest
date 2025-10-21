@@ -399,7 +399,8 @@ class CT_Exercise implements \JsonSerializable {
             ':exercise_id' => $this->getExerciseId(),
             ':ct_id' => $this->getCtId(),
         );
-        $exerciseId = $query['PDOX']->rowDie($query['sentence'], $arr)["exerciseId"];
+        $queryResult = $query['PDOX']->rowDie($query['sentence'], $arr);
+        $exerciseId = $queryResult ? $queryResult["exerciseId"] : null;
         return !(isset($exerciseId) && $exerciseId > 0);
     }
 

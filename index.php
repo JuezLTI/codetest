@@ -5,9 +5,7 @@ require_once('util/Functions.php');
 $currentTime = new DateTime('now', new DateTimeZone($CFG_CT->timezone));
 $currentTime = $currentTime->format("Y-m-d H:i:s");
 
-$userforMain = $USER->instructor ? $USER->id : null;
-
-$main = \CT\CT_Main::getMainFromContext($CONTEXT->id, $LINK->id, $userforMain, $currentTime);
+$main = \CT\CT_Main::getMainFromContext($CONTEXT->id, $LINK->id, $USER->id, $currentTime);
 $_SESSION["ct_id"] = $main->getCtId();
 $exercises = $main->getExercises();
 
@@ -20,8 +18,14 @@ if(array_key_exists('custom_link_id_history',$post)
 ) {
     $linkCopy = new \CT\CT_Link($LINK->id);
     $mainOriginal = $linkOriginal->getCtMain();
+
     if($mainOriginal && !$main->getSeenSplash()) {
         $linkCopy->import($mainOriginal, $main);
+        $main->setUserId($mainOriginal->getUserId());
+        $main->save();
+        $main = \CT\CT_Main::getMainFromContext($CONTEXT->id, $LINK->id, $USER->id, $currentTime);
+        $_SESSION["ct_id"] = $main->getCtId();
+        $exercises = $main->getExercises();
     }
 }
 
@@ -34,14 +38,9 @@ if ( $USER->instructor ) {
         header('Location: '.addSession('splash.php'));
     }
 } else { // student
-
-    if (!$main) {
+    if (!$exercises || count($exercises) == 0) {
         header('Location: '.addSession('splash.php'));
     } else {
-        if (!$exercises || count($exercises) == 0) {
-            header('Location: '.addSession('splash.php'));
-        } else {
-            header( 'Location: '.addSession('student-home.php')) ;
-        }
+        header( 'Location: '.addSession('student-home.php')) ;
     }
 }

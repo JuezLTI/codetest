@@ -30,9 +30,9 @@ class CT_Main implements \JsonSerializable
         \CT\CT_DAO::setObjectPropertiesFromArray($this, $context);
     }
 
-    public static function getMainFromContext($context_id, $link_id, $user_id = null, $current_time = null) {
+    public static function getMainFromContext($context_id, $link_id, $user_id, $current_time = null) {
         $object = self::getMain($context_id, $link_id);
-        if (!$object->getCtId()) {
+        if (!isset($object) || !$object->getCtId()) {
             $object = self::createMain($user_id, $context_id, $link_id, $current_time);
         }
         return $object;
@@ -48,7 +48,7 @@ class CT_Main implements \JsonSerializable
         $query = \CT\CT_DAO::getQuery('main','getMain');
         $arr = array(':context_id' => $context_id, ':link_id' => $link_id);
         $context = $query['PDOX']->rowDie($query['sentence'], $arr);
-        return new self($context['ct_id']);
+        return $context ? new self($context['ct_id']) : null;
     }
 
     public static function getMainFromLinkId($link_id) {
