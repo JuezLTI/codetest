@@ -214,5 +214,12 @@ $DATABASE_UPGRADE = function($oldversion) {
         $q = $PDOX->queryDie($sql);
     }
 
-    return '202012201623';
+    // Create Unique index in ct_main
+    if(($indexes = $PDOX->indexes("{$CFG->dbprefix}ct_main")) && !in_array('unique_context_link', $indexes)) {
+        $sql = "CREATE UNIQUE INDEX `unique_context_link` ON {$CFG->dbprefix}ct_main (context_id, link_id);";
+        error_log("Upgrading: " . $sql);
+        $q = $PDOX->queryDie($sql);
+    }
+
+    return '202112011310';
 };
