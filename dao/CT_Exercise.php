@@ -405,7 +405,7 @@ class CT_Exercise implements \JsonSerializable {
     }
 
     public function save() {
-        global $CFG_CT;
+        global $CFG_CT, $CFG;
         $currentTime = new \DateTime('now', new \DateTimeZone($CFG->timezone));
         $currentTime = $currentTime->format("Y-m-d H:i:s");
         $isNew = $this->isNew();

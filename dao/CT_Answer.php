@@ -252,7 +252,7 @@ class CT_Answer
     }
 
     public function save() {
-        global $CFG_CT;
+        global $CFG_CT, $CFG;
         $currentTime = new \DateTime('now', new \DateTimeZone($CFG->timezone));
         $currentTime = $currentTime->format("Y-m-d H:i:s");
         if($this->isNew()) { 
