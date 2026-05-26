@@ -302,7 +302,7 @@ class CT_Main implements \JsonSerializable
             $students[$index]['isInstructor'] = $user->isInstructor($this->getContextId());
             if (!$students[$index]['isInstructor']) {
                 $students[$index]['mostRecentDate'] = $mostRecentDate;
-                $students[$index]['formattedMostRecentDate'] = $mostRecentDate->format("m/d/y") . " | " . $mostRecentDate->format("h:i A");
+                $students[$index]['formattedMostRecentDate'] = $mostRecentDate->format("d/m/y") . " | " . $mostRecentDate->format("h:i A");
                 $students[$index]['numberAnswered'] = $user->getNumberExercisesAnswered($this->getCtId());
                 $students[$index]['grade'] = $user->getGrade($this->getCtId())->getGrade();
             }

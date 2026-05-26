@@ -7,7 +7,7 @@ if ($USER->instructor) {
 
     $result = array();
     if (isset($_POST["toolTitle"])) {
-        $currentTime = new DateTime('now', new DateTimeZone($CFG_CT->timezone));
+        $currentTime = new DateTime('now', new DateTimeZone($CFG->timezone));
         $main = new \CT\CT_Main($_SESSION["ct_id"]);
         $main->setModified($currentTime->format("Y-m-d H:i:s"));
         $main->setTitle($_POST["toolTitle"]);
